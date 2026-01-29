@@ -9,16 +9,6 @@ export const metadata: Metadata = {
     keywords : ["사주", "운세", "맞춤형 피드", "운명", "인사이트","SHORTS"]
 }
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -26,9 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body>
         <RQProvider>
             {children}
         </RQProvider>
