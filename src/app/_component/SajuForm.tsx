@@ -74,7 +74,7 @@ export default function SajuForm() {
             </div>
 
             {/* 3. 분석 버튼 */}
-            <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white h-12">
+            <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white ">
                 내 운세 분석하기
             </Button>
         </div>
