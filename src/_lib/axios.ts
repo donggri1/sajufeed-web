@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-    baseURL : "/api", // next.config에서 설정해줬음
+    baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api`,
     timeout : 5000, // 5초 타임아웃
     headers : {
         "Content-Type" : "application/json"

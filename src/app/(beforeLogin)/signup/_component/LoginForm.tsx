@@ -33,6 +33,7 @@ export default function LoginForm() {
     const onSubmit = async (values : z.infer<typeof loginSchema>) =>{
         setIsLoding(true);
         try {
+            debugger;
             const result = await signIn("credentials",{ // /api/auth/callback/credentials 라는 주소로 데이터를 쏨.
                 email : values.email,
                 password : values.password,

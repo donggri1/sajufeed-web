@@ -10,7 +10,7 @@ export const {handlers,auth,signIn,signOut} = NextAuth({
         Credentials({
             async authorize(credentials) {
                 // [Next.js 서버에서 실행됨] 백엔드 NestJS 서버로 로그인 요청
-                const res = await fetch(`${process.env.BACKEND_URL}/users/login`, {
+                const res = await fetch(`${process.env.BACKEND_URL}/api/users/login`, {
                     method: 'POST',
                     body: JSON.stringify({
                         email: credentials.email,
