@@ -7,10 +7,10 @@ export function Footer() {
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
                     <div className="col-span-1 md:col-span-2">
                         <span className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                            사주피드
+                            SAJUFEED
                         </span>
                         <p className="mt-4 text-sm text-slate-500 max-w-xs">
-                            사주피드는 당신의 사주를 분석하여 매일 맞춤형 운세와 인사이트를 제공하는 개인화 운세 서비스입니다.
+                            SAJUFEED는 당신의 사주를 분석하여 매일 맞춤형 운세와 인사이트를 제공하는 개인화 운세 서비스입니다.
                         </p>
                     </div>
                     <div>
@@ -32,7 +32,7 @@ export function Footer() {
                 </div>
                 <div className="mt-12 border-t pt-8">
                     <p className="text-sm text-slate-400 text-center">
-                        © 2026 사주피드. All rights reserved.
+                        © 2026 SAJUFEED. All rights reserved.
                     </p>
                 </div>
             </div>

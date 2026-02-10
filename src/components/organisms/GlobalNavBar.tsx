@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { User } from "next-auth";
@@ -17,6 +19,7 @@ import {
     Compass,
     BookOpen
 } from "lucide-react";
+import { signOut } from "next-auth/react";
 
 interface GlobalNavBarProps {
     user?: User | any;
@@ -44,7 +47,7 @@ export function GlobalNavBar({ user }: GlobalNavBarProps) {
                             <Sparkles className="text-white w-5 h-5" />
                         </div>
                         <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent tracking-tight">
-                            사주피드
+                            SAJUFEED
                         </span>
                     </Link>
 
@@ -65,10 +68,6 @@ export function GlobalNavBar({ user }: GlobalNavBarProps) {
 
                 {/* 우측 액션 영역 */}
                 <div className="flex items-center gap-2 md:gap-4">
-                    {/* 검색 버튼 (데스크톱) */}
-                    <Button variant="ghost" size="icon" className="hidden md:flex text-slate-500 hover:text-indigo-600">
-                        <Search className="w-5 h-5" />
-                    </Button>
 
                     {/* 알림 버튼 */}
                     <Button variant="ghost" size="icon" className="relative text-slate-500 hover:text-indigo-600">
@@ -81,7 +80,7 @@ export function GlobalNavBar({ user }: GlobalNavBarProps) {
                     {user ? (
                         <div className="flex items-center gap-3">
                             <div className="hidden md:flex flex-col items-end mr-1">
-                                <span className="text-sm font-semibold text-slate-900 leading-none">{user.name}님</span>
+                                <span className="text-sm font-semibold text-slate-900 leading-none">{user.nickname}님</span>
                             </div>
                             
                             {/* 사용자 프로필 (shadcn Avatar 대용) */}
@@ -89,8 +88,8 @@ export function GlobalNavBar({ user }: GlobalNavBarProps) {
                                 {user.name?.[0] || "U"}
                             </div>
 
-                            <Button variant="ghost" size="icon" className="text-slate-500 hover:text-red-600">
-                                <LogOut className="w-5 h-5" />
+                            <Button variant="ghost" size="icon" className="text-slate-500 hover:text-red-600" onClick={() => signOut({callbackUrl: "/"})}>
+                                <LogOut className="w-5 h-5"  /> 
                             </Button>
                         </div>
                     ) : (

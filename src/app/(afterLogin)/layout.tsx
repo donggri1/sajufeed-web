@@ -9,7 +9,7 @@ export default async function AfterLoginLayout({
     children: React.ReactNode;
 }) {
     const session = await auth();
-    console.log(session);
+
 
     if (!session) {
         redirect("/login");

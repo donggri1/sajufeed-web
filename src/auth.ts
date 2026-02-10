@@ -15,6 +15,7 @@ export const {handlers,auth,signIn,signOut} = NextAuth({
                     body: JSON.stringify({
                         email: credentials.email,
                         password: credentials.password,
+                        nickname : credentials.nickname,
                     }),
                     headers: { "Content-Type": "application/json" }
                 });
@@ -31,11 +32,19 @@ export const {handlers,auth,signIn,signOut} = NextAuth({
     ],
     callbacks: {
         async jwt ({token, user}){
-            return { ...token, user};
+            if(user){
+                token.email = user.email;
+                token.nickname = user.nickname;
+            }
+            return token; // 토큰 반환
         },
         async session ({session,token}){
             // 세션에서 유저 정보를 꺼내 쓸 수 있게 함.
-            session.user = token as any;
+            if(session.user){
+                session.user.email = token.email as string;
+                session.user.nickname = token.nickname as string;
+            }
+            
             return session;
         }
     }
