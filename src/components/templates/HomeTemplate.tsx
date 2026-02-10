@@ -4,31 +4,46 @@ import { Badge } from "@/components/ui/badge";
 
 interface HomeTemplateProps {
     nickname: string;
-    children?: React.ReactNode; // 추가적인 상세 분석 내용
+    children?: React.ReactNode;
 }
 
 export function HomeTemplate({ nickname }: HomeTemplateProps) {
     return (
-        <div className="flex-1 space-y-6 p-8 pt-6 bg-slate-50 min-h-screen">
-            <div className="flex items-center justify-between">
-                <h2 className="text-3xl font-bold tracking-tight text-slate-900">
-                    {nickname}님의 2026년 운세 🔮
-                </h2>
-                <Badge variant="secondary" className="text-sm px-4 py-1">병오년 (丙午年)</Badge>
+        <div className="bg-slate-50 min-h-[calc(100vh-64px)]">
+            <div className="container mx-auto max-w-7xl px-4 md:px-8 py-8">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                    <div>
+                        <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-900">
+                            {nickname}님의 2026년 운세 🔮
+                        </h2>
+                        <p className="text-slate-500 mt-1">오늘의 기운과 분석 결과를 확인해보세요.</p>
+                    </div>
+                    <Badge variant="secondary" className="w-fit text-sm px-4 py-1.5 bg-indigo-50 text-indigo-700 border-indigo-100">
+                        병오년 (丙午年)
+                    </Badge>
+                </div>
+
+                <SajuSummaryGrid />
+
+                <Tabs defaultValue="total" className="space-y-6 mt-10">
+                    <TabsList className="bg-white border p-1 h-12">
+                        <TabsTrigger value="total" className="px-8 py-2">종합 분석</TabsTrigger>
+                        <TabsTrigger value="period" className="px-8 py-2">시기별 운세</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="total" className="border rounded-2xl bg-white p-8 shadow-sm min-h-[400px]">
+                        <div className="flex flex-col items-center justify-center py-24 text-center">
+                            <div className="w-16 h-16 bg-indigo-50 rounded-full flex items-center justify-center mb-4">
+                                <span className="text-2xl">✨</span>
+                            </div>
+                            <h3 className="text-xl font-semibold text-slate-900">상세 분석 준비 중</h3>
+                            <p className="text-slate-500 mt-2 max-w-md">
+                                {nickname}님의 사주 데이터를 바탕으로 정밀한 분석을 진행하고 있습니다. <br/>
+                                곧 더 깊이 있는 정보를 확인하실 수 있습니다.
+                            </p>
+                        </div>
+                    </TabsContent>
+                </Tabs>
             </div>
-
-            <SajuSummaryGrid />
-
-            <Tabs defaultValue="total" className="space-y-4">
-                <TabsList>
-                    <TabsTrigger value="total">종합 분석</TabsTrigger>
-                    <TabsTrigger value="period">시기별 운세</TabsTrigger>
-                </TabsList>
-                <TabsContent value="total" className="border rounded-xl bg-white p-6 shadow-sm">
-                    {/* 여기에 상세 분석 Organism이 들어갑니다. */}
-                    <p className="text-slate-600">상세한 사주 분석 결과가 여기에 표시됩니다.</p>
-                </TabsContent>
-            </Tabs>
         </div>
     );
 }

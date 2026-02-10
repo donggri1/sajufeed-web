@@ -3,7 +3,7 @@ import { HomeTemplate } from "@/components/templates/HomeTemplate";
 import { redirect } from "next/navigation";
 
 export default async function HomePage() {
-    const session = await auth();
+    const session = await auth(); // 세션 가져오기
 
     if (!session) {
         redirect("/login");
