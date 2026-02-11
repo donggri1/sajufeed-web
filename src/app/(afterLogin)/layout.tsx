@@ -1,7 +1,9 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
-import { GlobalNavBar } from "@/components/organisms/GlobalNavBar";
 import { Footer } from "@/components/organisms/Footer";
+import { SidebarProvider, SidebarTrigger, SidebarInset } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/organisms/AppSidebar";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 export default async function AfterLoginLayout({
     children,
@@ -10,18 +12,25 @@ export default async function AfterLoginLayout({
 }) {
     const session = await auth();
 
-
     if (!session) {
         redirect("/login");
     }
 
     return (
-        <div className="flex flex-col min-h-screen">
-            <GlobalNavBar user={session.user} />
-            <main className="flex-1">
-                {children}
-            </main>
-            <Footer />
-        </div>
+        <TooltipProvider>
+            <SidebarProvider>
+                <AppSidebar user={session.user} />
+                <SidebarInset className="flex flex-col min-h-screen">
+                    <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4 sticky top-0 bg-white/80 backdrop-blur-md z-10">
+                        <SidebarTrigger className="-ml-1" />
+                        <div className="h-4 w-[1px] bg-slate-200 mx-2" />
+                    </header>
+                    <main className="flex-1 overflow-y-auto">
+                        {children}
+                    </main>
+                    <Footer />
+                </SidebarInset>
+            </SidebarProvider>
+        </TooltipProvider>
     );
 }
