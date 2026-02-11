@@ -19,13 +19,26 @@ import {
     Compass,
     BookOpen
 } from "lucide-react";
+import {
+    Sheet,
+    SheetContent,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
+  } from "@/components/ui/sheet";
 import { signOut } from "next-auth/react";
+import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
+import { MobileSideBar } from "./MobileSideBar";
 
 interface GlobalNavBarProps {
     user?: User | any;
 }
 
 export function GlobalNavBar({ user }: GlobalNavBarProps) {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const pathname = usePathname();
     const menuItems = [
         { name: "오늘의 운세", href: "/daily", icon: <Sun className="w-4 h-4" /> },
         { name: "사주", href: "/saju", icon: <Sparkles className="w-4 h-4" /> },
@@ -98,10 +111,7 @@ export function GlobalNavBar({ user }: GlobalNavBarProps) {
                         </Button>
                     )}
 
-                    {/* 모바일 메뉴 버튼 */}
-                    <Button variant="ghost" size="icon" className="xl:hidden text-slate-600">
-                        <Menu className="w-6 h-6" />
-                    </Button>
+                    <MobileSideBar menuItems={menuItems} user={user} />
                 </div>
             </div>
         </header>
