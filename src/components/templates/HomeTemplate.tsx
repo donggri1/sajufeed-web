@@ -35,7 +35,7 @@ export function HomeTemplate({ nickname }: HomeTemplateProps) {
                     </div>
 
                     {/* 오른쪽: 오늘의 운세 보기 버튼 카드 */}
-                    <div className="lg:col-span-1">
+                    <div className="lg:col-span-1 ">
                         <DailyFortuneButton />
                     </div>
                 </div>
