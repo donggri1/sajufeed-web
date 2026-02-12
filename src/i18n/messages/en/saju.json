@@ -1,0 +1,27 @@
+{
+  "form": {
+    "title": "Enter Your Information",
+    "subtitle": "Please enter your birth information for accurate analysis",
+    "name": "Name",
+    "birthDate": "Birth Date",
+    "birthTime": "Birth Time",
+    "gender": "Gender",
+    "genderMale": "Male",
+    "genderFemale": "Female",
+    "solar": "Solar",
+    "lunar": "Lunar",
+    "submitButton": "View Fortune"
+  },
+  "result": {
+    "title": "Your Four Pillars Fortune",
+    "subtitle": "Discover your destiny"
+  },
+  "summary": {
+    "fortune": "Overall",
+    "wealth": "Wealth",
+    "love": "Love",
+    "career": "Career",
+    "health": "Health",
+    "study": "Study"
+  }
+}

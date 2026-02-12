@@ -1,0 +1,18 @@
+{
+  "menu": {
+    "home": "Home",
+    "dailyFortune": "Daily Fortune",
+    "detailedSaju": "Detailed Reading",
+    "community": "Community",
+    "webtoon": "AI Webtoon",
+    "myPage": "My Page",
+    "settings": "Settings"
+  },
+  "language": {
+    "title": "Select Language",
+    "ko": "한국어",
+    "en": "English",
+    "ja": "日本語",
+    "zh": "中文"
+  }
+}

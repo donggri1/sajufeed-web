@@ -12,7 +12,7 @@ import axiosInstance from "@/_lib/axios";
 import {Form, FormControl, FormField, FormItem, FormMessage} from "@/components/ui/form";
 import {useRouter} from "next/navigation";
 import {useMutation} from "@tanstack/react-query";
-import {login} from "@/app/(beforeLogin)/_lib/login";
+import {login} from "@/app/[locale]/(beforeLogin)/_lib/login";
 import {signIn} from "next-auth/react";
 
 

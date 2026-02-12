@@ -1,0 +1,18 @@
+{
+  "menu": {
+    "home": "홈",
+    "dailyFortune": "오늘의 운세",
+    "detailedSaju": "상세 사주",
+    "community": "커뮤니티",
+    "webtoon": "AI 웹툰",
+    "myPage": "마이페이지",
+    "settings": "설정"
+  },
+  "language": {
+    "title": "언어 선택",
+    "ko": "한국어",
+    "en": "English",
+    "ja": "日本語",
+    "zh": "中文"
+  }
+}

@@ -1,25 +1,34 @@
-import {getSession} from "next-auth/react";
-import {auth} from "@/auth";
-import {NextResponse} from "next/server";
+import createMiddleware from 'next-intl/middleware';
+import { NextRequest, NextResponse } from 'next/server';
+import { routing } from './i18n/routing';
 
-export default auth((req) => {
-    const isLoggedin = !!req.auth; // 세션 존재 여부 확인
-    const { nextUrl } = req;
-    console.log(`[Middleware] Path: ${nextUrl.pathname}`);
-    console.log(`[Middleware] Is Logged In: ${isLoggedin}`);
-    console.log(`[Middleware] Session Data:`, req.auth); // 세션 객체 전체 확인
-    // 1. 로그인하지 않은 상태로 /home 등 보호된 경로에 접근할 때
-    if (!isLoggedin && nextUrl.pathname.startsWith('/home')) {
-        return NextResponse.redirect(new URL("/", nextUrl));
-    }
+const intlMiddleware = createMiddleware(routing);
 
-    // 2. 이미 로그인했는데 /login이나 /signup에 접근하려고 할 때
-    if (isLoggedin && (nextUrl.pathname === '/login' || nextUrl.pathname === '/signup')) {
-        return NextResponse.redirect(new URL("/home", nextUrl));
-    }
-
-    return NextResponse.next();
-});
-export const config = {
-    matcher: ['/home']
+export default function proxy(req: NextRequest) {
+  const { pathname, search } = req.nextUrl;
+  
+  console.log('========== PROXY.TS DEBUG ==========');
+  console.log('[1] 요청 URL:', pathname + search);
+  console.log('[2] 요청 메서드:', req.method);
+  console.log('[3] 요청 헤더 (accept-language):', req.headers.get('accept-language'));
+  
+  // next-intl 처리 (locale 리다이렉트)
+  const response = intlMiddleware(req);
+  
+  console.log('[4] intlMiddleware 응답 상태:', response.status);
+  console.log('[5] 리다이렉트 위치:', response.headers.get('location') || '없음');
+  console.log('====================================\n');
+  
+  return response;
 }
+
+export const config = {
+  // Match only internationalized pathnames
+  // IMPORTANT: locale 없는 모든 경로를 캐치하여 리다이렉트
+  matcher: [
+    // locale 없는 경로 (api, _next, static 제외)
+    '/((?!api|_next|_vercel|.*\\..*).*)',
+    // locale 있는 경로
+    '/(ko|en|ja|zh)/:path*'
+  ]
+};

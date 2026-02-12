@@ -1,0 +1,31 @@
+{
+  "buttons": {
+    "submit": "제출",
+    "cancel": "취소",
+    "save": "저장",
+    "edit": "수정",
+    "delete": "삭제",
+    "confirm": "확인",
+    "close": "닫기",
+    "next": "다음",
+    "prev": "이전",
+    "login": "로그인",
+    "logout": "로그아웃",
+    "signup": "회원가입"
+  },
+  "labels": {
+    "email": "이메일",
+    "password": "비밀번호",
+    "passwordConfirm": "비밀번호 확인",
+    "nickname": "닉네임",
+    "name": "이름",
+    "birthDate": "생년월일",
+    "birthTime": "출생 시간"
+  },
+  "messages": {
+    "loading": "로딩 중...",
+    "error": "오류가 발생했습니다",
+    "success": "성공했습니다",
+    "noData": "데이터가 없습니다"
+  }
+}

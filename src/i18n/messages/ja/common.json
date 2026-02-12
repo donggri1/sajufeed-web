@@ -1,0 +1,31 @@
+{
+  "buttons": {
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "close": "Close",
+    "next": "Next",
+    "prev": "Previous",
+    "login": "Login",
+    "logout": "Logout",
+    "signup": "Sign Up"
+  },
+  "labels": {
+    "email": "Email",
+    "password": "Password",
+    "passwordConfirm": "Confirm Password",
+    "nickname": "Nickname",
+    "name": "Name",
+    "birthDate": "Birth Date",
+    "birthTime": "Birth Time"
+  },
+  "messages": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Success",
+    "noData": "No data available"
+  }
+}

@@ -7,13 +7,16 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 
 export default async function AfterLoginLayout({
     children,
+    params
 }: {
     children: React.ReactNode;
+    params: Promise<{ locale: string }>;
 }) {
+    const { locale } = await params;
     const session = await auth();
 
     if (!session) {
-        redirect("/login");
+        redirect(`/${locale}`);
     }
 
     return (

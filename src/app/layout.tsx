@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import RQProvider from "@/app/_component/RQProvider";
+import RQProvider from "@/app/[locale]/_component/RQProvider";
 
 export const metadata: Metadata = {
     title : "사주피드 - 내 운명을 읽다.",

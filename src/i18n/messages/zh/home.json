@@ -1,0 +1,16 @@
+{
+  "greeting": "{nickname}'s 2026 Fortune 🔮",
+  "description": "Check your daily energy and analysis results.",
+  "year": "Year of the Fire Horse",
+  "dailyFortune": "Today's Fortune",
+  "dailyFortuneDescription": "Check your daily fortune for free, once a day",
+  "tabs": {
+    "total": "Overall Analysis",
+    "period": "Periodic Fortune"
+  },
+  "analysisPlaceholder": {
+    "title": "Detailed Analysis in Progress",
+    "description": "We are conducting a detailed analysis based on {nickname}'s Four Pillars data.",
+    "subdescription": "More in-depth information will be available soon."
+  }
+}
