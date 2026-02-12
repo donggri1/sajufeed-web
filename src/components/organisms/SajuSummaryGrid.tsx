@@ -1,12 +1,17 @@
+"use client";
+
 import { SajuStatCard } from "../molecules/SajuStatCard";
+import { useTranslations } from 'next-intl';
 
 export function SajuSummaryGrid() {
+    const t = useTranslations('fortune');
+    
     // 나중에 백엔드 데이터로 교체될 부분
     const stats = [
-        { title: "오늘의 총운", value: "85점", description: "새로운 시작에 길한 날", icon: "✨", color: "border-t-purple-500" },
-        { title: "재물운", value: "매우 좋음", description: "뜻밖의 수익 예상", icon: "💰", color: "border-t-yellow-500" },
-        { title: "애정운", value: "보통", description: "차분한 대화가 필요", icon: "❤️", color: "border-t-pink-500" },
-        { title: "직업운", value: "안정적", description: "노력한 만큼의 결실", icon: "💼", color: "border-t-blue-500" },
+        { title: t('totalFortune'), value: "85점", description: t('totalDesc'), icon: "✨", color: "border-t-purple-500" },
+        { title: t('wealthFortune'), value: t('wealthValue'), description: t('wealthDesc'), icon: "💰", color: "border-t-yellow-500" },
+        { title: t('loveFortune'), value: t('loveValue'), description: t('loveDesc'), icon: "❤️", color: "border-t-pink-500" },
+        { title: t('careerFortune'), value: t('careerValue'), description: t('careerDesc'), icon: "💼", color: "border-t-blue-500" },
     ];
 
     return (

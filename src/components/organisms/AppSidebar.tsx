@@ -29,20 +29,22 @@ import {
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { usePathname } from "next/navigation";
+import { useTranslations } from 'next-intl';
 
 export function AppSidebar({ user }: { user?: any }) {
     const pathname = usePathname();
+    const t = useTranslations('nav');
     
     const menuItems = [
-        { name: "홈", href: "/home", icon: Home },
-        { name: "오늘의 운세", href: "/daily", icon: Sun },
-        { name: "사주", href: "/saju", icon: Sparkles },
-        { name: "토정비결", href: "/tojeong", icon: BookOpen },
-        { name: "신년운세", href: "/new-year", icon: Calendar },
-        { name: "궁합", href: "/compatibility", icon: Heart },
-        { name: "택일", href: "/pick-date", icon: Compass },
-        { name: "이름사주", href: "/name-saju", icon: Star },
-        { name: "꿈해몽", href: "/dream", icon: Moon },
+        { name: t('home'), href: "/home", icon: Home },
+        { name: t('daily'), href: "/daily", icon: Sun },
+        { name: t('saju'), href: "/saju", icon: Sparkles },
+        { name: t('tojeong'), href: "/tojeong", icon: BookOpen },
+        { name: t('newYear'), href: "/new-year", icon: Calendar },
+        { name: t('compatibility'), href: "/compatibility", icon: Heart },
+        { name: t('pickDate'), href: "/pick-date", icon: Compass },
+        { name: t('nameSaju'), href: "/name-saju", icon: Star },
+        { name: t('dream'), href: "/dream", icon: Moon },
     ];
 
     return (
@@ -53,14 +55,14 @@ export function AppSidebar({ user }: { user?: any }) {
                         <Sparkles className="text-white w-4 h-4" />
                     </div>
                     <span className="font-bold text-xl bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent group-data-[collapsible=icon]:hidden whitespace-nowrap">
-                        사주피드
+                        {t('appName')}
                     </span>
                 </Link>
             </SidebarHeader>
 
             <SidebarContent>
                 <SidebarGroup>
-                    <SidebarGroupLabel>메뉴</SidebarGroupLabel>
+                    <SidebarGroupLabel>{t('menu')}</SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
                             {menuItems.map((item) => (
@@ -82,22 +84,22 @@ export function AppSidebar({ user }: { user?: any }) {
                 </SidebarGroup>
 
                 <SidebarGroup className="mt-auto">
-                    <SidebarGroupLabel>설정</SidebarGroupLabel>
+                    <SidebarGroupLabel>{t('settings')}</SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
                             <SidebarMenuItem>
-                                <SidebarMenuButton tooltip="내 정보">
+                                <SidebarMenuButton tooltip={t('myAccount')}>
                                     <Link href="/myAccount" className="flex items-center gap-2">
                                         <UserIcon className="w-4 h-4" />
-                                        <span>내 정보</span>
+                                        <span>{t('myAccount')}</span>
                                     </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
                             <SidebarMenuItem>
-                                <SidebarMenuButton tooltip="환경설정">
+                                <SidebarMenuButton tooltip={t('preferences')}>
                                     <Link href="/settings" className="flex items-center gap-2">
                                         <Settings className="w-4 h-4" />
-                                        <span>환경설정</span>
+                                        <span>{t('preferences')}</span>
                                     </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
@@ -114,14 +116,14 @@ export function AppSidebar({ user }: { user?: any }) {
                                 size="lg" 
                                 className="w-full justify-start gap-3 hover:bg-slate-100"
                                 onClick={() => signOut()}
-                                tooltip="로그아웃"
+                                tooltip={t('logout')}
                             >
                                 <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-bold text-xs shrink-0">
                                     {user.name?.[0] || "U"}
                                 </div>
                                 <div className="flex flex-col items-start overflow-hidden group-data-[collapsible=icon]:hidden">
                                     <span className="text-sm font-semibold text-slate-900 truncate w-full">{user.name}님</span>
-                                    <span className="text-[10px] text-slate-500">로그아웃</span>
+                                    <span className="text-[10px] text-slate-500">{t('logout')}</span>
                                 </div>
                                 <LogOut className="w-4 h-4 ml-auto group-data-[collapsible=icon]:hidden text-slate-400" />
                             </SidebarMenuButton>
@@ -129,7 +131,7 @@ export function AppSidebar({ user }: { user?: any }) {
                     </SidebarMenu>
                 ) : (
                     <SidebarMenuButton className="w-full bg-indigo-600 text-white hover:bg-indigo-700">
-                        로그인
+                        {t('login')}
                     </SidebarMenuButton>
                 )}
             </SidebarFooter>

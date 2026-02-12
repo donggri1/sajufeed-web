@@ -31,6 +31,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { MobileSideBar } from "./MobileSideBar";
+import { useTranslations } from 'next-intl';
 
 interface GlobalNavBarProps {
     user?: User | any;
@@ -39,15 +40,17 @@ interface GlobalNavBarProps {
 export function GlobalNavBar({ user }: GlobalNavBarProps) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const pathname = usePathname();
+    const t = useTranslations('nav');
+    
     const menuItems = [
-        { name: "오늘의 운세", href: "/daily", icon: <Sun className="w-4 h-4" /> },
-        { name: "사주", href: "/saju", icon: <Sparkles className="w-4 h-4" /> },
-        { name: "토정비결", href: "/tojeong", icon: <BookOpen className="w-4 h-4" /> },
-        { name: "신년운세", href: "/new-year", icon: <Calendar className="w-4 h-4" /> },
-        { name: "궁합", href: "/compatibility", icon: <Heart className="w-4 h-4" /> },
-        { name: "택일", href: "/pick-date", icon: <Compass className="w-4 h-4" /> },
-        { name: "이름사주", href: "/name-saju", icon: <Star className="w-4 h-4" /> },
-        { name: "꿈해몽", href: "/dream", icon: <Moon className="w-4 h-4" /> },
+        { name: t('daily'), href: "/daily", icon: <Sun className="w-4 h-4" /> },
+        { name: t('saju'), href: "/saju", icon: <Sparkles className="w-4 h-4" /> },
+        { name: t('tojeong'), href: "/tojeong", icon: <BookOpen className="w-4 h-4" /> },
+        { name: t('newYear'), href: "/new-year", icon: <Calendar className="w-4 h-4" /> },
+        { name: t('compatibility'), href: "/compatibility", icon: <Heart className="w-4 h-4" /> },
+        { name: t('pickDate'), href: "/pick-date", icon: <Compass className="w-4 h-4" /> },
+        { name: t('nameSaju'), href: "/name-saju", icon: <Star className="w-4 h-4" /> },
+        { name: t('dream'), href: "/dream", icon: <Moon className="w-4 h-4" /> },
     ];
 
     return (
@@ -60,7 +63,7 @@ export function GlobalNavBar({ user }: GlobalNavBarProps) {
                             <Sparkles className="text-white w-5 h-5" />
                         </div>
                         <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent tracking-tight">
-                            SAJUFEED
+                            {t('appName').toUpperCase()}
                         </span>
                     </Link>
 
@@ -107,7 +110,7 @@ export function GlobalNavBar({ user }: GlobalNavBarProps) {
                         </div>
                     ) : (
                         <Button size="sm" className="bg-indigo-600 hover:bg-indigo-700 shadow-md shadow-indigo-100">
-                            로그인
+                            {t('login')}
                         </Button>
                     )}
 

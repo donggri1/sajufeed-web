@@ -5,21 +5,8 @@ import { routing } from './i18n/routing';
 const intlMiddleware = createMiddleware(routing);
 
 export default function proxy(req: NextRequest) {
-  const { pathname, search } = req.nextUrl;
-  
-  console.log('========== PROXY.TS DEBUG ==========');
-  console.log('[1] 요청 URL:', pathname + search);
-  console.log('[2] 요청 메서드:', req.method);
-  console.log('[3] 요청 헤더 (accept-language):', req.headers.get('accept-language'));
-  
   // next-intl 처리 (locale 리다이렉트)
-  const response = intlMiddleware(req);
-  
-  console.log('[4] intlMiddleware 응답 상태:', response.status);
-  console.log('[5] 리다이렉트 위치:', response.headers.get('location') || '없음');
-  console.log('====================================\n');
-  
-  return response;
+  return intlMiddleware(req); // intlMiddleware 함수를 사용하여 미들웨어를 실행한다.
 }
 
 export const config = {

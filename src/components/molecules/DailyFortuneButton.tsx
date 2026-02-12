@@ -4,10 +4,12 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Sparkles, Loader2, CheckCircle2 } from "lucide-react";
 import { useFortuneStore } from "@/store/fortune";
+import { useTranslations } from 'next-intl';
 
 export function DailyFortuneButton() {
     const [isLoading, setIsLoading] = useState(false);
     const { isUsed, checkIsUsed, setFortune } = useFortuneStore();
+    const t = useTranslations('fortune');
 
     useEffect(() => {
         checkIsUsed();
@@ -30,7 +32,7 @@ export function DailyFortuneButton() {
             // Zustand 스토어 업데이트
             setFortune(mockData);
             
-            alert("오늘의 운세가 업데이트되었습니다! 🔮");
+            alert(t('updateSuccess'));
         } catch (error) {
             console.error("운세 가져오기 실패:", error);
         } finally {
@@ -45,10 +47,9 @@ export function DailyFortuneButton() {
                     <Sparkles className="w-6 h-6" />
                 </div>
                 <div>
-                    <h3 className="font-bold text-slate-900 text-lg">오늘의 기운 확인</h3>
+                    <h3 className="font-bold text-slate-900 text-lg">{t('dailyTitle')}</h3>
                     <p className="text-sm text-slate-500 mt-1">
-                        매일 한 번, 당신의 사주를 분석하여<br/>
-                        새로운 운세를 생성합니다.
+                        {t('dailyDescription')}
                     </p>
                 </div>
             </div>
@@ -66,20 +67,20 @@ export function DailyFortuneButton() {
                     {isLoading ? (
                         <>
                             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                            분석 중...
+                            {t('analyzing')}
                         </>
                     ) : isUsed ? (
                         <>
                             <CheckCircle2 className="mr-2 h-4 w-4" />
-                            확인 완료
+                            {t('completed')}
                         </>
                     ) : (
-                        "운세 보기"
+                        t('viewButton')
                     )}
                 </Button>
                 {isUsed && (
                     <p className="text-[11px] text-slate-400 mt-3 text-center">
-                        내일 다시 확인하실 수 있습니다.
+                        {t('nextDay')}
                     </p>
                 )}
             </div>
