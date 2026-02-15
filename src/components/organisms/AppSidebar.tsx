@@ -12,14 +12,14 @@ import {
     SidebarMenuItem,
     SidebarRail,
 } from "@/components/ui/sidebar";
-import { 
-    Sun, 
-    Sparkles, 
-    BookOpen, 
-    Calendar, 
-    Heart, 
-    Compass, 
-    Star, 
+import {
+    Sun,
+    Sparkles,
+    BookOpen,
+    Calendar,
+    Heart,
+    Compass,
+    Star,
     Moon,
     LogOut,
     User as UserIcon,
@@ -34,7 +34,7 @@ import { useTranslations } from 'next-intl';
 export function AppSidebar({ user }: { user?: any }) {
     const pathname = usePathname();
     const t = useTranslations('nav');
-    
+
     const menuItems = [
         { name: t('home'), href: "/home", icon: Home },
         { name: t('daily'), href: "/daily", icon: Sun },
@@ -67,8 +67,8 @@ export function AppSidebar({ user }: { user?: any }) {
                         <SidebarMenu>
                             {menuItems.map((item) => (
                                 <SidebarMenuItem key={item.href}>
-                                    <SidebarMenuButton 
-                                        asChild 
+                                    <SidebarMenuButton
+                                        asChild
                                         isActive={pathname === item.href}
                                         tooltip={item.name}
                                     >
@@ -89,7 +89,7 @@ export function AppSidebar({ user }: { user?: any }) {
                         <SidebarMenu>
                             <SidebarMenuItem>
                                 <SidebarMenuButton tooltip={t('myAccount')}>
-                                    <Link href="/myAccount" className="flex items-center gap-2">
+                                    <Link href="/profile" className="flex items-center gap-2">
                                         <UserIcon className="w-4 h-4" />
                                         <span>{t('myAccount')}</span>
                                     </Link>
@@ -112,8 +112,8 @@ export function AppSidebar({ user }: { user?: any }) {
                 {user ? (
                     <SidebarMenu>
                         <SidebarMenuItem>
-                            <SidebarMenuButton 
-                                size="lg" 
+                            <SidebarMenuButton
+                                size="lg"
                                 className="w-full justify-start gap-3 hover:bg-slate-100"
                                 onClick={() => signOut()}
                                 tooltip={t('logout')}

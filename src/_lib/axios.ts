@@ -1,30 +1,33 @@
 import axios from 'axios';
+import { getSession } from 'next-auth/react';
 
 const axiosInstance = axios.create({
     baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api`,
-    timeout : 5000, // 5초 타임아웃
-    headers : {
-        "Content-Type" : "application/json"
+    timeout: 5000,
+    headers: {
+        "Content-Type": "application/json"
     },
-    withCredentials : true // 쿠키 전달 허용
+    withCredentials: true
 });
 
-// 요청 인터셉터
+// 요청 인터셉터 - JWT 토큰 자동 첨부
 axiosInstance.interceptors.request.use(
-    (config)=>{
-        // 요청 전에 수행할 작업 (예: 인증 토큰 추가)
-        console.log("Request Sent : " , config.url);
+    async (config) => {
+        const session = await getSession();
+        if (session?.accessToken) {
+            config.headers.Authorization = `Bearer ${session.accessToken}`;
+        }
+        console.log("Request Sent:", config.url);
         return config;
     },
-    (error)=> Promise.reject(error)
+    (error) => Promise.reject(error)
 );
 
 // 응답데이터 인터셉터
 axiosInstance.interceptors.response.use(
-    (response)=>response, // 응답 데이터 그대로 반환
-    (error)=>{
+    (response) => response,
+    (error) => {
         if (error.response?.status === 401) {
-            // 인증 에러 처리 로직
             console.error("인증이 만료되었습니다.");
         }
         return Promise.reject(error);
@@ -32,3 +35,4 @@ axiosInstance.interceptors.response.use(
 );
 
 export default axiosInstance;
+

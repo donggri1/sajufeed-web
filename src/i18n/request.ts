@@ -11,8 +11,14 @@ export default getRequestConfig(async ({ locale }) => {
     notFound();
   }
 
+  const common = (await import(`./messages/${currentLocale}/common.json`)).default;
+  const profile = (await import(`./messages/${currentLocale}/profile.json`)).default;
+
   return {
     locale: currentLocale,
-    messages: (await import(`./messages/${currentLocale}/common.json`)).default,
+    messages: {
+      ...common,
+      profile, // profile 네임스페이스 추가
+    },
   };
 });

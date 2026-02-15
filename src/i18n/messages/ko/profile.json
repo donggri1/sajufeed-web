@@ -1,0 +1,20 @@
+{
+    "title": "내 정보",
+    "birthDate": "생년월일",
+    "birthTime": "출생시간",
+    "birthTimeUnknown": "출생시간 모름",
+    "gender": "성별",
+    "male": "남성",
+    "female": "여성",
+    "calendarType": "양력/음력",
+    "solar": "양력",
+    "lunar": "음력",
+    "birthPlace": "출생지",
+    "birthPlaceholder": "예: 서울",
+    "save": "저장",
+    "saving": "저장 중...",
+    "required": "필수 입력 항목입니다",
+    "saveSuccess": "프로필이 저장되었습니다!",
+    "saveError": "프로필 저장에 실패했습니다.",
+    "loadError": "프로필 로드에 실패했습니다."
+}
