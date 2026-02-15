@@ -1,13 +1,15 @@
 'use client';
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Sparkles, Loader2, CheckCircle2 } from "lucide-react";
 import { useFortuneStore } from "@/store/fortune";
 import { useTranslations } from 'next-intl';
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { getDailyFortune } from '@/lib/api/fortune';
 
 export function DailyFortuneButton() {
-    const [isLoading, setIsLoading] = useState(false);
+    const queryClient = useQueryClient();
     const { isUsed, checkIsUsed, setFortune } = useFortuneStore();
     const t = useTranslations('fortune');
 
@@ -15,9 +17,27 @@ export function DailyFortuneButton() {
         checkIsUsed();
     }, [checkIsUsed]);
 
+    const mutation = useMutation({
+
+        mutationFn: () => getDailyFortune(false), // mock=false 명시
+        onSuccess: (data) => {
+            // 1. 캐시 즉시 업데이트 (화면 리렌더링)
+            queryClient.setQueryData(['fortune', 'daily'], data);
+
+            // 2. 쿼리 무효화 (데이터 신선도 보장)
+            queryClient.invalidateQueries({ queryKey: ['fortune', 'daily'] });
+
+            alert(t('updateSuccess'));
+        },
+        onError: (error) => {
+            console.error("운세 가져오기 실패:", error);
+            alert('운세 조회에 실패했습니다. 다시 시도해주세요.');
+        }
+    });
+
     const handleGetFortune = async () => {
-        if (isUsed) return;
-        setIsLoading(true);
+        // if (isUsed) return; // 테스트를 위해 일시적으로 주석 처리
+
         try {
             // 1. 프로필 필수 정보 체크
             const { getMyProfile } = await import('@/lib/api/users');
@@ -29,26 +49,12 @@ export function DailyFortuneButton() {
                 window.location.href = '/profile';
                 return;
             }
-
-            // 3. API 호출 시뮬레이션
-            await new Promise(resolve => setTimeout(resolve, 2000));
-
-            // 가상의 운세 데이터
-            const mockData = {
-                score: 95,
-                summary: "오늘은 아주 운이 좋은 날입니다.",
-                details: "새로운 도전을 하기에 완벽한 시기입니다."
-            };
-
-            // Zustand 스토어 업데이트
-            setFortune(mockData);
-
-            alert(t('updateSuccess'));
+            debugger;
+            // 3. 뮤테이션 실행
+            mutation.mutate();
+            debugger;
         } catch (error) {
-            console.error("운세 가져오기 실패:", error);
-            alert('운세 조회에 실패했습니다. 다시 시도해주세요.');
-        } finally {
-            setIsLoading(false);
+            console.error("프로필 확인 중 오류:", error);
         }
     };
 
@@ -69,13 +75,13 @@ export function DailyFortuneButton() {
             <div className="p-6 pt-0">
                 <Button
                     onClick={handleGetFortune}
-                    disabled={isLoading || isUsed}
-                    className={`w-full h-12 font-bold transition-all ${isUsed
+                    disabled={mutation.isPending}
+                    className={`w-full h-12 font-bold transition-all ${mutation.isPending
                         ? "bg-slate-100 text-slate-400 hover:bg-slate-100"
                         : "bg-indigo-600 hover:bg-indigo-700 text-white shadow-md"
                         }`}
                 >
-                    {isLoading ? (
+                    {mutation.isPending ? (
                         <>
                             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                             {t('analyzing')}

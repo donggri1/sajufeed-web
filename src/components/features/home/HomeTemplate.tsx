@@ -5,6 +5,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { DailyFortuneButton } from "@/components/features/fortune/DailyFortuneButton";
 import { useTranslations } from 'next-intl';
+import { useDailyFortune } from "@/hooks/queries/useDailyFortune";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface HomeTemplateProps {
     nickname: string;
@@ -13,6 +15,9 @@ interface HomeTemplateProps {
 
 export function HomeTemplate({ nickname }: HomeTemplateProps) {
     const t = useTranslations('dashboard');
+    const tFortune = useTranslations('fortune');
+    const { data: fortune, isLoading } = useDailyFortune();
+
     return (
         <div className="bg-slate-50 min-h-[calc(100vh-64px)]">
             <div className="container mx-auto max-w-7xl px-4 md:px-8 py-8">
@@ -27,10 +32,19 @@ export function HomeTemplate({ nickname }: HomeTemplateProps) {
                                 <p className="text-slate-500 mt-1">{t('todayEnergy')}</p>
                             </div>
                             <Badge variant="secondary" className="w-fit text-sm px-4 py-1.5 bg-indigo-50 text-indigo-700 border-indigo-100">
-                                {t('yearLabel')}
+                                {fortune?.date || t('yearLabel')}
                             </Badge>
                         </div>
-                        <SajuSummaryGrid />
+
+                        {isLoading ? (
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                                {[1, 2, 3, 4].map((i) => (
+                                    <Skeleton key={i} className="h-32 rounded-xl" />
+                                ))}
+                            </div>
+                        ) : (
+                            <SajuSummaryGrid data={fortune} />
+                        )}
                     </div>
 
                     {/* 오른쪽: 오늘의 운세 보기 버튼 카드 */}
@@ -45,15 +59,49 @@ export function HomeTemplate({ nickname }: HomeTemplateProps) {
                         <TabsTrigger value="period" className="px-8 py-2">{t('tabPeriod')}</TabsTrigger>
                     </TabsList>
                     <TabsContent value="total" className="border rounded-2xl bg-white p-8 shadow-sm min-h-[400px]">
-                        <div className="flex flex-col items-center justify-center py-24 text-center">
-                            <div className="w-16 h-16 bg-indigo-50 rounded-full flex items-center justify-center mb-4">
-                                <span className="text-2xl">✨</span>
+                        {isLoading ? (
+                            <div className="space-y-4 py-12">
+                                <Skeleton className="h-12 w-3/4 mx-auto" />
+                                <Skeleton className="h-4 w-full" />
+                                <Skeleton className="h-4 w-full" />
+                                <Skeleton className="h-4 w-2/3 mx-auto" />
                             </div>
-                            <h3 className="text-xl font-semibold text-slate-900">{t('analysisTitle')}</h3>
-                            <p className="text-slate-500 mt-2 max-w-md">
-                                {t('analysisDescription', { nickname })}
-                            </p>
-                        </div>
+                        ) : fortune ? (
+                            <div className="flex flex-col items-center justify-center py-12 text-center text-slate-800">
+                                <div className="w-16 h-16 bg-indigo-50 rounded-full flex items-center justify-center mb-6">
+                                    <span className="text-3xl">✨</span>
+                                </div>
+                                <h3 className="text-2xl font-bold mb-4">{fortune.summary}</h3>
+                                <p className="text-lg text-slate-600 max-w-2xl leading-relaxed whitespace-pre-wrap">
+                                    {fortune.description}
+                                </p>
+
+                                <div className="grid grid-cols-3 gap-6 mt-12 w-full max-w-lg">
+                                    <div className="bg-slate-50 p-4 rounded-xl">
+                                        <div className="text-sm text-slate-500 mb-1">{tFortune('luckyColor')}</div>
+                                        <div className="font-bold text-indigo-600">{fortune.luckyColor}</div>
+                                    </div>
+                                    <div className="bg-slate-50 p-4 rounded-xl">
+                                        <div className="text-sm text-slate-500 mb-1">{tFortune('luckyItem')}</div>
+                                        <div className="font-bold text-purple-600">{fortune.luckyItem}</div>
+                                    </div>
+                                    <div className="bg-slate-50 p-4 rounded-xl">
+                                        <div className="text-sm text-slate-500 mb-1">{tFortune('luckyDirection')}</div>
+                                        <div className="font-bold text-blue-600">{fortune.luckyDirection}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="flex flex-col items-center justify-center py-24 text-center">
+                                <div className="w-16 h-16 bg-indigo-50 rounded-full flex items-center justify-center mb-4">
+                                    <span className="text-2xl">✨</span>
+                                </div>
+                                <h3 className="text-xl font-semibold text-slate-900">{t('analysisTitle')}</h3>
+                                <p className="text-slate-500 mt-2 max-w-md">
+                                    {t('analysisDescription', { nickname })}
+                                </p>
+                            </div>
+                        )}
                     </TabsContent>
                 </Tabs>
             </div>

@@ -1,0 +1,18 @@
+{
+    "totalFortune": "종합운",
+    "totalDesc": "오늘의 전반적인 운세입니다.",
+    "wealthFortune": "재물운",
+    "wealthDesc": "금전 흐름과 투자 운",
+    "loveFortune": "애정운",
+    "loveDesc": "연애와 대인관계 운",
+    "wishFortune": "소망운",
+    "wishDesc": "바라던 일이 이루어질 운",
+    "careerFortune": "직업운",
+    "careerDesc": "직장과 사업 관련 운",
+    "wealthValue": "보통",
+    "loveValue": "좋음",
+    "careerValue": "매우 좋음",
+    "luckyColor": "행운의 색",
+    "luckyItem": "행운의 아이템",
+    "luckyDirection": "행운의 방향"
+}

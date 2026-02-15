@@ -1,0 +1,18 @@
+{
+    "totalFortune": "Total Fortune",
+    "totalDesc": "Overall fortune for today.",
+    "wealthFortune": "Wealth",
+    "wealthDesc": "Money flow and investment luck",
+    "loveFortune": "Love",
+    "loveDesc": "Love and relationship luck",
+    "wishFortune": "Wish",
+    "wishDesc": "Luck for wishes coming true",
+    "careerFortune": "Career",
+    "careerDesc": "Job and business luck",
+    "wealthValue": "Normal",
+    "loveValue": "Good",
+    "careerValue": "Excellent",
+    "luckyColor": "Lucky Color",
+    "luckyItem": "Lucky Item",
+    "luckyDirection": "Lucky Direction"
+}

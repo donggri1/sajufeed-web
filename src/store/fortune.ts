@@ -17,13 +17,17 @@ export const useFortuneStore = create<FortuneState>()(
             fortuneData: null,
             setFortune: (data) => {
                 const today = new Date().toISOString().split('T')[0];
-                set({ 
-                    fortuneData: data, 
+                set({
+                    fortuneData: data,
                     lastFortuneDate: today,
-                    isUsed: true 
+                    isUsed: true
                 });
             },
             checkIsUsed: () => {
+                // 테스트를 위해 일시적으로 무력화: 항상 false로 설정
+                set({ isUsed: false });
+
+                /* 원래 로직:
                 const today = new Date().toISOString().split('T')[0];
                 const { lastFortuneDate } = get();
                 if (lastFortuneDate === today) {
@@ -31,6 +35,7 @@ export const useFortuneStore = create<FortuneState>()(
                 } else {
                     set({ isUsed: false });
                 }
+                */
             },
         }),
         {

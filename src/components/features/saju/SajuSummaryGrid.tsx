@@ -2,16 +2,48 @@
 
 import { SajuStatCard } from "./SajuStatCard";
 import { useTranslations } from 'next-intl';
+import { DailyFortuneResponse } from "@/types/fortune";
 
-export function SajuSummaryGrid() {
+interface SajuSummaryGridProps {
+    data?: DailyFortuneResponse;
+}
+
+export function SajuSummaryGrid({ data }: SajuSummaryGridProps) {
     const t = useTranslations('fortune');
 
-    // 나중에 백엔드 데이터로 교체될 부분
+    if (!data) {
+        return null;
+    }
+
     const stats = [
-        { title: t('totalFortune'), value: "85점", description: t('totalDesc'), icon: "✨", color: "border-t-purple-500" },
-        { title: t('wealthFortune'), value: t('wealthValue'), description: t('wealthDesc'), icon: "💰", color: "border-t-yellow-500" },
-        { title: t('loveFortune'), value: t('loveValue'), description: t('loveDesc'), icon: "❤️", color: "border-t-pink-500" },
-        { title: t('careerFortune'), value: t('careerValue'), description: t('careerDesc'), icon: "💼", color: "border-t-blue-500" },
+        {
+            title: t('totalFortune'),
+            value: `${data.totalScore}점`,
+            description: data.summary,
+            icon: "✨",
+            color: "border-t-purple-500"
+        },
+        {
+            title: t('wealthFortune'),
+            value: `${data.wealthScore}점`,
+            description: t('wealthDesc'),
+            icon: "💰",
+            color: "border-t-yellow-500"
+        },
+        {
+            title: t('loveFortune'),
+            value: `${data.loveScore}점`,
+            description: t('loveDesc'),
+            icon: "❤️",
+            color: "border-t-pink-500"
+        },
+        {
+            title: t('wishFortune'),
+            value: `${data.wishScore}점`,
+            description: t('wishDesc'),
+            icon: "🙏",
+            color: "border-t-blue-500"
+        },
     ];
 
     return (

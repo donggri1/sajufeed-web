@@ -3,7 +3,7 @@ import { getSession } from 'next-auth/react';
 
 const apiClient = axios.create({
     baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api`,
-    timeout: 5000,
+    timeout: 60000,
     headers: {
         "Content-Type": "application/json"
     },

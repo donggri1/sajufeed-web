@@ -12,13 +12,33 @@ export default getRequestConfig(async ({ locale }) => {
   }
 
   const common = (await import(`./messages/${currentLocale}/common.json`)).default;
-  const profile = (await import(`./messages/${currentLocale}/profile.json`)).default;
+
+  // 로드할 개별 모듈 목록
+  const modules = [
+    'profile', 'fortune', 'home', 'daily', 'saju',
+    'tojeong', 'new-year', 'compatibility', 'pick-date',
+    'name-saju', 'dream', 'footer', 'navigation', 'auth', 'manse'
+  ];
+
+  const messages: Record<string, any> = { ...common };
+
+  for (const moduleName of modules) {
+    try {
+      const moduleContent = (await import(`./messages/${currentLocale}/${moduleName}.json`)).default;
+
+      // 만약 common에도 해당 네임스페이스가 있다면 병합, 아니면 새로 추가
+      if (messages[moduleName]) {
+        messages[moduleName] = { ...messages[moduleName], ...moduleContent };
+      } else {
+        messages[moduleName] = moduleContent;
+      }
+    } catch (error) {
+      // 파일이 없을 경우 무시
+    }
+  }
 
   return {
     locale: currentLocale,
-    messages: {
-      ...common,
-      profile, // profile 네임스페이스 추가
-    },
+    messages: messages,
   };
 });
