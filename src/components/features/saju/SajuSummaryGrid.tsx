@@ -1,11 +1,11 @@
 "use client";
 
-import { SajuStatCard } from "../molecules/SajuStatCard";
+import { SajuStatCard } from "./SajuStatCard";
 import { useTranslations } from 'next-intl';
 
 export function SajuSummaryGrid() {
     const t = useTranslations('fortune');
-    
+
     // 나중에 백엔드 데이터로 교체될 부분
     const stats = [
         { title: t('totalFortune'), value: "85점", description: t('totalDesc'), icon: "✨", color: "border-t-purple-500" },

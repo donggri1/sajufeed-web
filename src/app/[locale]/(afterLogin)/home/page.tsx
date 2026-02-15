@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { HomeTemplate } from "@/components/templates/HomeTemplate";
+import { HomeTemplate } from "@/components/features/home/HomeTemplate";
 import { redirect } from "next/navigation";
 
 export default async function HomePage() {

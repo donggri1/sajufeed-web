@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getSession } from 'next-auth/react';
 
-const axiosInstance = axios.create({
+const apiClient = axios.create({
     baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api`,
     timeout: 5000,
     headers: {
@@ -11,7 +11,7 @@ const axiosInstance = axios.create({
 });
 
 // 요청 인터셉터 - JWT 토큰 자동 첨부
-axiosInstance.interceptors.request.use(
+apiClient.interceptors.request.use(
     async (config) => {
         const session = await getSession();
         if (session?.accessToken) {
@@ -24,7 +24,7 @@ axiosInstance.interceptors.request.use(
 );
 
 // 응답데이터 인터셉터
-axiosInstance.interceptors.response.use(
+apiClient.interceptors.response.use(
     (response) => response,
     (error) => {
         if (error.response?.status === 401) {
@@ -34,5 +34,4 @@ axiosInstance.interceptors.response.use(
     }
 );
 
-export default axiosInstance;
-
+export default apiClient;

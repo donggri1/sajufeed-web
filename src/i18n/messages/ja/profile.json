@@ -1,0 +1,20 @@
+{
+    "title": "マイ情報",
+    "birthDate": "生年月日",
+    "birthTime": "出生時間",
+    "birthTimeUnknown": "出生時間不明",
+    "gender": "性別",
+    "male": "男性",
+    "female": "女性",
+    "calendarType": "暦",
+    "solar": "太陽暦",
+    "lunar": "太陰暦",
+    "birthPlace": "出生地",
+    "birthPlaceholder": "例：ソウル",
+    "save": "保存",
+    "saving": "保存中...",
+    "required": "必須項目です",
+    "saveSuccess": "プロフィールが保存されました！",
+    "saveError": "プロフィールの保存に失敗しました。",
+    "loadError": "プロフィールの読み込みに失敗しました。"
+}

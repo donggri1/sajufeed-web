@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import SajuFormWrapper from "@/app/[locale]/_component/SajuFormWrapper";
+import SajuFormWrapper from "@/components/features/saju/SajuFormWrapper";
 import LoginForm from "@/app/[locale]/(beforeLogin)/signup/_component/LoginForm";
 import { getTranslations } from 'next-intl/server';
 

@@ -1,0 +1,20 @@
+{
+    "title": "我的信息",
+    "birthDate": "出生日期",
+    "birthTime": "出生时间",
+    "birthTimeUnknown": "不知道出生时间",
+    "gender": "性别",
+    "male": "男",
+    "female": "女",
+    "calendarType": "日历类型",
+    "solar": "阳历",
+    "lunar": "阴历",
+    "birthPlace": "出生地",
+    "birthPlaceholder": "例：首尔",
+    "save": "保存",
+    "saving": "保存中...",
+    "required": "必填项",
+    "saveSuccess": "个人信息已保存！",
+    "saveError": "保存个人信息失败。",
+    "loadError": "加载个人信息失败。"
+}

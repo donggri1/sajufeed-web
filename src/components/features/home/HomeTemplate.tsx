@@ -1,9 +1,9 @@
 "use client";
 
-import { SajuSummaryGrid } from "../organisms/SajuSummaryGrid";
+import { SajuSummaryGrid } from "@/components/features/saju/SajuSummaryGrid";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { DailyFortuneButton } from "../molecules/DailyFortuneButton";
+import { DailyFortuneButton } from "@/components/features/fortune/DailyFortuneButton";
 import { useTranslations } from 'next-intl';
 
 interface HomeTemplateProps {

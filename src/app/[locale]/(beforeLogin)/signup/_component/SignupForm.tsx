@@ -3,8 +3,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { useMutation } from "@tanstack/react-query";
-import { signup } from "../../_lib/signup";
+import { useSignup } from "@/hooks/mutations/useSignup";
 import { Button } from "@/components/ui/button";
 import {
     Form,
@@ -19,7 +18,7 @@ import { useTranslations } from 'next-intl';
 
 export default function SignupForm() {
     const t = useTranslations('signup');
-    
+
     // 유효성 검사 스키마 정의
     const formSchema = z.object({
         email: z.string().email(t('emailError')),
@@ -36,22 +35,21 @@ export default function SignupForm() {
         },
     });
 
-    // React Query Mutation (백엔드 통신)
-    const mutation = useMutation({
-        mutationFn: signup,
-        onSuccess: (data) => {
-            if (data) {
-                alert(t('successMessage'));
-                window.location.href = "/";
-            }
-        },
-        onError: (error: any) => {
-            alert(error.response?.data?.message || t('errorMessage'));
-        },
-    });
+    // React Query Mutation
+    const mutation = useSignup();
 
     function onSubmit(values: z.infer<typeof formSchema>) {
-        mutation.mutate(values);
+        mutation.mutate(values, {
+            onSuccess: (data) => {
+                if (data) {
+                    alert(t('successMessage'));
+                    window.location.href = "/";
+                }
+            },
+            onError: (error: any) => {
+                alert(error.response?.data?.message || t('errorMessage'));
+            },
+        });
     }
 
     return (

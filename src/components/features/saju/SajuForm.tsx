@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
-import { useSajuStore } from "@/store/modal";
+import { useSajuStore } from "@/store/saju-form";
 import { useTranslations } from 'next-intl';
 
 export default function SajuForm() {
@@ -65,7 +65,7 @@ export default function SajuForm() {
                         <Calendar
                             mode="single"
                             selected={birthDate}
-                            onSelect={(date)=>setBirthDate(date)}
+                            onSelect={(date) => setBirthDate(date)}
                             initialFocus
                             captionLayout="dropdown"
                             fromYear={1950}

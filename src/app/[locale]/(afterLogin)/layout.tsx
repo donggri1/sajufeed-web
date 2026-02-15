@@ -1,8 +1,8 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
-import { Footer } from "@/components/organisms/Footer";
+import { Footer } from "@/components/layout/Footer";
 import { SidebarProvider, SidebarTrigger, SidebarInset } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/organisms/AppSidebar";
+import { AppSidebar } from "@/components/layout/AppSidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
 export default async function AfterLoginLayout({

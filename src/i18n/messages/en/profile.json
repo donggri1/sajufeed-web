@@ -1,0 +1,20 @@
+{
+    "title": "My Profile",
+    "birthDate": "Date of Birth",
+    "birthTime": "Time of Birth",
+    "birthTimeUnknown": "Unknown birth time",
+    "gender": "Gender",
+    "male": "Male",
+    "female": "Female",
+    "calendarType": "Calendar Type",
+    "solar": "Solar",
+    "lunar": "Lunar",
+    "birthPlace": "Place of Birth",
+    "birthPlaceholder": "e.g. Seoul",
+    "save": "Save",
+    "saving": "Saving...",
+    "required": "This field is required",
+    "saveSuccess": "Profile saved!",
+    "saveError": "Failed to save profile.",
+    "loadError": "Failed to load profile."
+}
