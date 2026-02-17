@@ -1,42 +1,17 @@
-'use client';
-
-import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Sparkles, Loader2, CheckCircle2 } from "lucide-react";
-import { useFortuneStore } from "@/store/fortune";
 import { useTranslations } from 'next-intl';
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { getDailyFortune } from '@/lib/api/fortune';
+import { useDailyFortune, useCreateDailyFortune } from "@/hooks/queries/useDailyFortune";
 
 export function DailyFortuneButton() {
-    const queryClient = useQueryClient();
-    const { isUsed, checkIsUsed, setFortune } = useFortuneStore();
+    const { data: fortune } = useDailyFortune();
+    const mutation = useCreateDailyFortune();
     const t = useTranslations('fortune');
 
-    useEffect(() => {
-        checkIsUsed();
-    }, [checkIsUsed]);
-
-    const mutation = useMutation({
-
-        mutationFn: () => getDailyFortune(false), // mock=false 명시
-        onSuccess: (data) => {
-            // 1. 캐시 즉시 업데이트 (화면 리렌더링)
-            queryClient.setQueryData(['fortune', 'daily'], data);
-
-            // 2. 쿼리 무효화 (데이터 신선도 보장)
-            queryClient.invalidateQueries({ queryKey: ['fortune', 'daily'] });
-
-            alert(t('updateSuccess'));
-        },
-        onError: (error) => {
-            console.error("운세 가져오기 실패:", error);
-            alert('운세 조회에 실패했습니다. 다시 시도해주세요.');
-        }
-    });
+    const isUsed = !!fortune;
 
     const handleGetFortune = async () => {
-        // if (isUsed) return; // 테스트를 위해 일시적으로 주석 처리
+        if (isUsed) return; // 테스트를 위해 일시적으로 주석 처리
 
         try {
             // 1. 프로필 필수 정보 체크
@@ -49,10 +24,9 @@ export function DailyFortuneButton() {
                 window.location.href = '/profile';
                 return;
             }
-            debugger;
+
             // 3. 뮤테이션 실행
             mutation.mutate();
-            debugger;
         } catch (error) {
             console.error("프로필 확인 중 오류:", error);
         }
@@ -78,7 +52,7 @@ export function DailyFortuneButton() {
                     disabled={mutation.isPending}
                     className={`w-full h-12 font-bold transition-all ${mutation.isPending
                         ? "bg-slate-100 text-slate-400 hover:bg-slate-100"
-                        : "bg-indigo-600 hover:bg-indigo-700 text-white shadow-md"
+                        : "bg-indigo-600 hover:bg-indigo-700 text-white shadow-md " + (!isUsed ? "animate-pulse ring-4 ring-indigo-200 ring-offset-2" : "")
                         }`}
                 >
                     {mutation.isPending ? (

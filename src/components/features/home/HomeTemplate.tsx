@@ -7,6 +7,7 @@ import { DailyFortuneButton } from "@/components/features/fortune/DailyFortuneBu
 import { useTranslations } from 'next-intl';
 import { useDailyFortune } from "@/hooks/queries/useDailyFortune";
 import { Skeleton } from "@/components/ui/skeleton";
+import { WelcomeState } from "./WelcomeState";
 
 interface HomeTemplateProps {
     nickname: string;
@@ -42,8 +43,10 @@ export function HomeTemplate({ nickname }: HomeTemplateProps) {
                                     <Skeleton key={i} className="h-32 rounded-xl" />
                                 ))}
                             </div>
-                        ) : (
+                        ) : fortune ? (
                             <SajuSummaryGrid data={fortune} />
+                        ) : (
+                            <WelcomeState nickname={nickname} />
                         )}
                     </div>
 
@@ -53,10 +56,11 @@ export function HomeTemplate({ nickname }: HomeTemplateProps) {
                     </div>
                 </div>
 
+                {/* 운세 탭 */}
                 <Tabs defaultValue="total" className="space-y-6 mt-10">
                     <TabsList className="bg-white border p-1 h-12">
                         <TabsTrigger value="total" className="px-8 py-2">{t('tabTotal')}</TabsTrigger>
-                        <TabsTrigger value="period" className="px-8 py-2">{t('tabPeriod')}</TabsTrigger>
+                        {/* <TabsTrigger value="period" className="px-8 py-2">{t('tabPeriod')}</TabsTrigger> */}
                     </TabsList>
                     <TabsContent value="total" className="border rounded-2xl bg-white p-8 shadow-sm min-h-[400px]">
                         {isLoading ? (

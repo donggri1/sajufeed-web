@@ -29,3 +29,11 @@ export async function getDailyFortune(mock: boolean = false): Promise<DailyFortu
     const { data } = await apiClient.get<DailyFortuneResponse>('/fortune/daily');
     return data;
 }
+
+/**
+ * 오늘의 운세 생성
+ */
+export async function createDailyFortune(): Promise<DailyFortuneResponse> {
+    const { data } = await apiClient.post<DailyFortuneResponse>('/fortune/daily');
+    return data;
+}
