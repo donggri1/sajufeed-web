@@ -63,7 +63,8 @@
     "todayEnergy": "今日の運気と分析結果を確認してください。",
     "yearLabel": "丙午年",
     "tabTotal": "総合分析",
-    "tabPeriod": "時期別運勢",
+    "tabDetails": "詳細分析",
+    "tabWebtoon": "AIウェブトゥーン",
     "analysisTitle": "詳細分析準備中",
     "analysisDescription": "{nickname}さんの四柱データをもとに精密な分析を進めています。まもなくより深い情報をご確認いただけます。"
   },

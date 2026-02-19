@@ -14,5 +14,16 @@
     "careerValue": "Excellent",
     "luckyColor": "Lucky Color",
     "luckyItem": "Lucky Item",
-    "luckyDirection": "Lucky Direction"
+    "luckyDirection": "Lucky Direction",
+    "webtoonTitle": "Create AI Webtoon",
+    "webtoonDescription": "AI creates a fun 4-panel comic based on your fortune.",
+    "webtoonCreate": "Create Webtoon",
+    "webtoonNeedDetails": "Detailed analysis required. Please generate your fortune first.",
+    "webtoonGenerating": "Generating webtoon...",
+    "webtoonGeneratingDesc": "AI is creating your personalized webtoon. Please wait a moment.",
+    "webtoonFailed": "Webtoon generation failed",
+    "webtoonRetry": "Try Again",
+    "webtoonPages": "{count} pages",
+    "page": "Page",
+    "imageLoading": "Loading image..."
 }

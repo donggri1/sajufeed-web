@@ -63,6 +63,7 @@ export function ProfileForm() {
 
     // 프로필 데이터가 로드되면 폼에 반영
     useEffect(() => {
+        debugger;
         if (profile) {
             reset({
                 birthDate: profile.birthDate || '',

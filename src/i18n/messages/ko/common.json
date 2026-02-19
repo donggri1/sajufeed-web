@@ -63,7 +63,8 @@
     "todayEnergy": "오늘의 기운과 분석 결과를 확인해보세요.",
     "yearLabel": "병오년 (丙午年)",
     "tabTotal": "종합 분석",
-    "tabPeriod": "시기별 운세",
+    "tabDetails": "상세 분석",
+    "tabWebtoon": "AI 웹툰",
     "analysisTitle": "상세 분석 준비 중",
     "analysisDescription": "{nickname}님의 사주 데이터를 바탕으로 정밀한 분석을 진행하고 있습니다. 곧 더 깊이 있는 정보를 확인하실 수 있습니다."
   },

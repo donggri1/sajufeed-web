@@ -63,7 +63,8 @@
     "todayEnergy": "查看今日气运和分析结果。",
     "yearLabel": "丙午年",
     "tabTotal": "综合分析",
-    "tabPeriod": "时期运势",
+    "tabDetails": "详细分析",
+    "tabWebtoon": "AI漫画",
     "analysisTitle": "详细分析准备中",
     "analysisDescription": "正在基于{nickname}的八字数据进行精密分析。很快您就能查看更深入的信息。"
   },

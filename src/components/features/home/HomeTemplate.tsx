@@ -4,6 +4,7 @@ import { SajuSummaryGrid } from "@/components/features/saju/SajuSummaryGrid";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { DailyFortuneButton } from "@/components/features/fortune/DailyFortuneButton";
+import { WebtoonButton } from "@/components/features/fortune/WebtoonButton";
 import { useTranslations } from 'next-intl';
 import { useDailyFortune } from "@/hooks/queries/useDailyFortune";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -60,7 +61,8 @@ export function HomeTemplate({ nickname }: HomeTemplateProps) {
                 <Tabs defaultValue="total" className="space-y-6 mt-10">
                     <TabsList className="bg-white border p-1 h-12">
                         <TabsTrigger value="total" className="px-8 py-2">{t('tabTotal')}</TabsTrigger>
-                        {/* <TabsTrigger value="period" className="px-8 py-2">{t('tabPeriod')}</TabsTrigger> */}
+                        <TabsTrigger value="details" className="px-8 py-2">{t('tabDetails')}</TabsTrigger>
+                        <TabsTrigger value="webtoon" className="px-8 py-2">{t('tabWebtoon')}</TabsTrigger>
                     </TabsList>
                     <TabsContent value="total" className="border rounded-2xl bg-white p-8 shadow-sm min-h-[400px]">
                         {isLoading ? (
@@ -106,6 +108,45 @@ export function HomeTemplate({ nickname }: HomeTemplateProps) {
                                 </p>
                             </div>
                         )}
+                    </TabsContent>
+                    <TabsContent value="details" className="border rounded-2xl bg-white p-8 shadow-sm min-h-[400px]">
+                        {isLoading ? (
+                            <div className="space-y-4 py-12">
+                                <Skeleton className="h-12 w-3/4 mx-auto" />
+                                <Skeleton className="h-4 w-full" />
+                                <Skeleton className="h-4 w-full" />
+                                <Skeleton className="h-4 w-full" />
+                                <Skeleton className="h-4 w-2/3 mx-auto" />
+                            </div>
+                        ) : fortune?.details ? (
+                            <div className="py-8 px-4 max-w-3xl mx-auto">
+                                <div className="flex items-center gap-3 mb-8">
+                                    <div className="w-12 h-12 bg-indigo-50 rounded-full flex items-center justify-center">
+                                        <span className="text-2xl">🔮</span>
+                                    </div>
+                                    <div>
+                                        <h3 className="text-xl font-bold text-slate-900">{t('tabDetails')}</h3>
+                                        <p className="text-sm text-slate-500">{fortune.date}</p>
+                                    </div>
+                                </div>
+                                <div className="text-base text-slate-700 leading-relaxed whitespace-pre-wrap space-y-1">
+                                    {fortune.details}
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="flex flex-col items-center justify-center py-24 text-center">
+                                <div className="w-16 h-16 bg-indigo-50 rounded-full flex items-center justify-center mb-4">
+                                    <span className="text-2xl">🔮</span>
+                                </div>
+                                <h3 className="text-xl font-semibold text-slate-900">{t('analysisTitle')}</h3>
+                                <p className="text-slate-500 mt-2 max-w-md">
+                                    {t('analysisDescription', { nickname })}
+                                </p>
+                            </div>
+                        )}
+                    </TabsContent>
+                    <TabsContent value="webtoon" className="border rounded-2xl bg-white p-8 shadow-sm min-h-[400px]">
+                        <WebtoonButton fortuneId={fortune?.id} hasDetails={!!fortune?.details} />
                     </TabsContent>
                 </Tabs>
             </div>

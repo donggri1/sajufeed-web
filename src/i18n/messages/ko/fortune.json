@@ -17,5 +17,16 @@
     "luckyDirection": "행운의 방향",
     "welcomeTitle": "{nickname}님, 오늘의 운세를 확인해보세요! ✨",
     "welcomeMessage": "아직 오늘의 운세 데이터가 없습니다. 오른쪽의 버튼을 눌러 AI가 분석해주는 나만의 운세를 받아보세요.",
-    "clickButton": "운세 보기"
+    "clickButton": "운세 보기",
+    "webtoonTitle": "AI 웹툰 만들기",
+    "webtoonDescription": "오늘의 운세를 바탕으로 AI가 재미있는 4컷 웹툰을 만들어 드립니다.",
+    "webtoonCreate": "웹툰 만들기",
+    "webtoonNeedDetails": "상세 분석이 필요합니다. 먼저 운세를 생성해주세요.",
+    "webtoonGenerating": "웹툰 생성 중...",
+    "webtoonGeneratingDesc": "AI가 당신만의 웹툰을 만들고 있습니다. 잠시만 기다려주세요.",
+    "webtoonFailed": "웹툰 생성에 실패했습니다",
+    "webtoonRetry": "다시 시도",
+    "webtoonPages": "{count}페이지",
+    "page": "페이지",
+    "imageLoading": "이미지 로딩 중..."
 }

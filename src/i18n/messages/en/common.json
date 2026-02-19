@@ -63,7 +63,8 @@
     "todayEnergy": "Check today's energy and analysis results.",
     "yearLabel": "Year of Fire Horse",
     "tabTotal": "Overall Analysis",
-    "tabPeriod": "Periodic Fortune",
+    "tabDetails": "Detailed Analysis",
+    "tabWebtoon": "AI Webtoon",
     "analysisTitle": "Detailed Analysis in Progress",
     "analysisDescription": "We are conducting a detailed analysis based on {nickname}'s birth chart data. More in-depth information will be available soon."
   },

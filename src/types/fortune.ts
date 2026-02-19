@@ -1,4 +1,7 @@
 export interface DailyFortuneResponse {
+    // ID
+    id: number;
+
     // 점수 (0~100)
     totalScore: number;      // 종합운
     wealthScore: number;     // 재물운
@@ -9,6 +12,7 @@ export interface DailyFortuneResponse {
     // 운세 내용
     summary: string;         // 한줄 요약
     description: string;     // 상세 내용
+    details: string | null;  // 상세 분석 (재물/애정/건강/직장)
 
     // 럭키 아이템
     luckyColor: string;
@@ -17,4 +21,32 @@ export interface DailyFortuneResponse {
 
     // 날짜
     date: string;            // YYYY-MM-DD
+
+    // 웹툰 (옵션)
+    webtoon?: WebtoonResponse | null;
+}
+
+export interface WebtoonPanelResponse {
+    id: number;
+    pageNumber: number;
+    imagePath: string;
+    description: string | null;
+}
+
+export interface WebtoonResponse {
+    id: number;
+    title: string;
+    status: 'pending' | 'generating' | 'completed' | 'failed';
+    panels: WebtoonPanelResponse[];
+    createdAt: string;
+}
+
+export interface FortuneHistoryResponse {
+    items: DailyFortuneResponse[];
+    meta: {
+        total: number;
+        page: number;
+        limit: number;
+        totalPages: number;
+    };
 }
