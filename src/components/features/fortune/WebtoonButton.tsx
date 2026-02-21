@@ -38,13 +38,14 @@ export function WebtoonButton({ fortuneId, hasDetails }: WebtoonButtonProps) {
         return <WebtoonViewer webtoon={webtoon} />;
     }
 
-    // 생성 중
-    if (webtoon && webtoon.status === 'generating' || createWebtoon.isPending) {
+    // 생성 중 (폴링으로 상태 감지)
+    if ((webtoon && (webtoon.status === 'generating' || webtoon.status === 'pending')) || createWebtoon.isPending) {
         return (
             <div className="flex flex-col items-center justify-center py-16 text-center">
                 <Loader2 className="w-12 h-12 text-indigo-500 animate-spin mb-4" />
                 <h3 className="text-lg font-semibold text-slate-900">{t('webtoonGenerating')}</h3>
                 <p className="text-slate-500 mt-2 text-sm">{t('webtoonGeneratingDesc')}</p>
+                <p className="text-xs text-slate-400 mt-4">자동으로 확인 중...</p>
             </div>
         );
     }
