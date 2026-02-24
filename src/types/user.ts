@@ -29,7 +29,10 @@ export interface UserProfile {
     birthTimeUnknown: boolean;
     gender: 'male' | 'female' | null;
     calendarType: 'solar' | 'lunar';
-    birthPlace: string | null;
+    name: string | null;
+    countryCode: string | null;
+    stateCode: string | null;
+    cityName: string | null;
 }
 
 export interface UpdateProfileDto {
@@ -38,5 +41,8 @@ export interface UpdateProfileDto {
     birthTimeUnknown?: boolean;
     gender?: 'male' | 'female' | null;
     calendarType?: 'solar' | 'lunar';
-    birthPlace?: string | null;
+    name?: string | null;
+    countryCode?: string | null;
+    stateCode?: string | null;
+    cityName?: string | null;
 }

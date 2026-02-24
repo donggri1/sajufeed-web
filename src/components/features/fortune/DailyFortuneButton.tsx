@@ -11,7 +11,7 @@ export function DailyFortuneButton() {
     const isUsed = !!fortune;
 
     const handleGetFortune = async () => {
-        if (isUsed) return; // 테스트를 위해 일시적으로 주석 처리
+        if (isUsed) return;
 
         try {
             // 1. 프로필 필수 정보 체크

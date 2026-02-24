@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -17,12 +17,11 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select';
-import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { CalendarIcon, Loader2 } from 'lucide-react';
-import { format } from 'date-fns';
-import { ko } from 'date-fns/locale';
+import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from '@/components/ui/command';
+import { ChevronsUpDown, Check, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Country, State, City } from 'country-state-city';
 
 const genderValues = ['male', 'female'] as const;
 const calendarValues = ['solar', 'lunar'] as const;
@@ -34,7 +33,10 @@ const profileSchema = z.object({
     birthTimeUnknown: z.boolean().optional(),
     gender: z.enum(genderValues, { message: '성별은 필수입니다' }),
     calendarType: z.enum(calendarValues).optional(),
-    birthPlace: z.string().optional().nullable(),
+    name: z.string().optional().nullable(),
+    countryCode: z.string().optional().nullable(),
+    stateCode: z.string().optional().nullable(),
+    cityName: z.string().optional().nullable(),
 });
 
 type ProfileFormData = z.infer<typeof profileSchema>;
@@ -60,10 +62,23 @@ export function ProfileForm() {
     });
 
     const birthTimeUnknown = watch('birthTimeUnknown');
+    const selectedCountry = watch('countryCode');
+    const selectedState = watch('stateCode');
+
+    const [countryOpen, setCountryOpen] = useState(false);
+    const [stateOpen, setStateOpen] = useState(false);
+    const [cityOpen, setCityOpen] = useState(false);
+
+    const countries = Country.getAllCountries();
+    const states = selectedCountry
+        ? State.getStatesOfCountry(selectedCountry)
+        : [];
+    const cities = selectedCountry && selectedState
+        ? City.getCitiesOfState(selectedCountry, selectedState)
+        : [];
 
     // 프로필 데이터가 로드되면 폼에 반영
     useEffect(() => {
-        debugger;
         if (profile) {
             reset({
                 birthDate: profile.birthDate || '',
@@ -71,7 +86,10 @@ export function ProfileForm() {
                 birthTimeUnknown: profile.birthTimeUnknown,
                 gender: profile.gender || undefined,
                 calendarType: profile.calendarType,
-                birthPlace: profile.birthPlace || '',
+                name: profile.name || '',
+                countryCode: profile.countryCode || '',
+                stateCode: profile.stateCode || '',
+                cityName: profile.cityName || '',
             });
         }
     }, [profile, reset]);
@@ -83,7 +101,10 @@ export function ProfileForm() {
             birthTimeUnknown: data.birthTimeUnknown,
             gender: data.gender,
             calendarType: data.calendarType,
-            birthPlace: data.birthPlace || null,
+            name: data.name || null,
+            countryCode: data.countryCode || null,
+            stateCode: data.stateCode || null,
+            cityName: data.cityName || null,
         }, {
             onSuccess: () => alert(t('saveSuccess')),
             onError: () => alert(t('saveError')),
@@ -92,6 +113,17 @@ export function ProfileForm() {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 bg-white p-6 rounded-lg shadow">
+            {/* 이름 */}
+            <div className="space-y-2">
+                <Label htmlFor="name">{t('name')}</Label>
+                <Input
+                    id="name"
+                    type="text"
+                    placeholder={t('namePlaceholder')}
+                    {...register('name')}
+                />
+            </div>
+
             {/* 생년월일 */}
             <div className="space-y-2">
                 <Label htmlFor="birthDate">
@@ -173,15 +205,155 @@ export function ProfileForm() {
                 </Select>
             </div>
 
-            {/* 출생지 */}
+            {/* 국가 */}
             <div className="space-y-2">
-                <Label htmlFor="birthPlace">{t('birthPlace')}</Label>
-                <Input
-                    id="birthPlace"
-                    type="text"
-                    placeholder="예: 서울"
-                    {...register('birthPlace')}
-                />
+                <Label>{t('country')}</Label>
+                <Popover open={countryOpen} onOpenChange={setCountryOpen}>
+                    <PopoverTrigger asChild>
+                        <Button
+                            variant="outline"
+                            role="combobox"
+                            aria-expanded={countryOpen}
+                            className="w-full justify-between font-normal"
+                            type="button"
+                        >
+                            {selectedCountry
+                                ? countries.find((c) => c.isoCode === selectedCountry)?.name ?? selectedCountry
+                                : t('countryPlaceholder')}
+                            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                        </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-full p-0" align="start">
+                        <Command>
+                            <CommandInput placeholder={t('countryPlaceholder')} />
+                            <CommandList>
+                                <CommandEmpty>{t('noResult')}</CommandEmpty>
+                                <CommandGroup>
+                                    {countries.map((c) => (
+                                        <CommandItem
+                                            key={c.isoCode}
+                                            value={`${c.name} ${c.isoCode}`}
+                                            onSelect={() => {
+                                                setValue('countryCode', c.isoCode);
+                                                setValue('stateCode', null);
+                                                setValue('cityName', null);
+                                                setCountryOpen(false);
+                                            }}
+                                        >
+                                            <Check className={cn("mr-2 h-4 w-4", selectedCountry === c.isoCode ? "opacity-100" : "opacity-0")} />
+                                            {c.flag} {c.name}
+                                        </CommandItem>
+                                    ))}
+                                </CommandGroup>
+                            </CommandList>
+                        </Command>
+                    </PopoverContent>
+                </Popover>
+            </div>
+
+            {/* 지역/주 */}
+            <div className="space-y-2">
+                <Label>{t('state')}</Label>
+                {states.length > 0 ? (
+                    <Popover open={stateOpen} onOpenChange={setStateOpen}>
+                        <PopoverTrigger asChild>
+                            <Button
+                                variant="outline"
+                                role="combobox"
+                                aria-expanded={stateOpen}
+                                className="w-full justify-between font-normal"
+                                type="button"
+                            >
+                                {selectedState
+                                    ? states.find((s) => s.isoCode === selectedState)?.name ?? selectedState
+                                    : t('statePlaceholder')}
+                                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                            </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-full p-0" align="start">
+                            <Command>
+                                <CommandInput placeholder={t('statePlaceholder')} />
+                                <CommandList>
+                                    <CommandEmpty>{t('noResult')}</CommandEmpty>
+                                    <CommandGroup>
+                                        {states.map((s) => (
+                                            <CommandItem
+                                                key={s.isoCode}
+                                                value={s.name}
+                                                onSelect={() => {
+                                                    setValue('stateCode', s.isoCode);
+                                                    setValue('cityName', null);
+                                                    setStateOpen(false);
+                                                }}
+                                            >
+                                                <Check className={cn("mr-2 h-4 w-4", selectedState === s.isoCode ? "opacity-100" : "opacity-0")} />
+                                                {s.name}
+                                            </CommandItem>
+                                        ))}
+                                    </CommandGroup>
+                                </CommandList>
+                            </Command>
+                        </PopoverContent>
+                    </Popover>
+                ) : (
+                    <Input
+                        type="text"
+                        placeholder={t('statePlaceholder')}
+                        disabled={!selectedCountry}
+                        className="disabled:opacity-50"
+                    />
+                )}
+            </div>
+
+            {/* 도시 */}
+            <div className="space-y-2">
+                <Label>{t('city')}</Label>
+                {cities.length > 0 ? (
+                    <Popover open={cityOpen} onOpenChange={setCityOpen}>
+                        <PopoverTrigger asChild>
+                            <Button
+                                variant="outline"
+                                role="combobox"
+                                aria-expanded={cityOpen}
+                                className="w-full justify-between font-normal"
+                                type="button"
+                            >
+                                {watch('cityName') || t('cityPlaceholder')}
+                                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                            </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-full p-0" align="start">
+                            <Command>
+                                <CommandInput placeholder={t('cityPlaceholder')} />
+                                <CommandList>
+                                    <CommandEmpty>{t('noResult')}</CommandEmpty>
+                                    <CommandGroup>
+                                        {cities.map((c) => (
+                                            <CommandItem
+                                                key={c.name}
+                                                value={c.name}
+                                                onSelect={() => {
+                                                    setValue('cityName', c.name);
+                                                    setCityOpen(false);
+                                                }}
+                                            >
+                                                <Check className={cn("mr-2 h-4 w-4", watch('cityName') === c.name ? "opacity-100" : "opacity-0")} />
+                                                {c.name}
+                                            </CommandItem>
+                                        ))}
+                                    </CommandGroup>
+                                </CommandList>
+                            </Command>
+                        </PopoverContent>
+                    </Popover>
+                ) : (
+                    <Input
+                        type="text"
+                        placeholder={t('cityPlaceholder')}
+                        {...register('cityName')}
+                        disabled={!selectedState && !selectedCountry}
+                    />
+                )}
             </div>
 
             {/* 저장 버튼 */}
@@ -189,7 +361,7 @@ export function ProfileForm() {
                 {updateMutation.isPending ? (
                     <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        저장 중...
+                        {t('saving')}
                     </>
                 ) : (
                     t('save')
