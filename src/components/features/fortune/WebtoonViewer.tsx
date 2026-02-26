@@ -14,6 +14,10 @@ export function WebtoonViewer({ webtoon }: WebtoonViewerProps) {
 
     const sortedPanels = [...webtoon.panels].sort((a, b) => a.pageNumber - b.pageNumber);
 
+    // 디버깅용 로그
+    console.log('--- WebtoonViewer Panels ---');
+    sortedPanels.forEach(p => console.log(`[Page ${p.pageNumber}] Original path: ${p.imagePath}`));
+
     return (
         <div className="space-y-6">
             {/* 제목 */}
@@ -42,11 +46,16 @@ export function WebtoonViewer({ webtoon }: WebtoonViewerProps) {
                         </div>
                         {/* 이미지 */}
                         <div className="p-4 flex justify-center">
-                            {panel.imagePath.startsWith('data:') || panel.imagePath.startsWith('http') ? (
+                            {panel.imagePath ? (
                                 <img
-                                    src={panel.imagePath}
+                                    src={panel.imagePath.startsWith('http') || panel.imagePath.startsWith('data:')
+                                        ? panel.imagePath
+                                        : `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000'}${panel.imagePath}`}
                                     alt={panel.description || `Page ${panel.pageNumber}`}
                                     className="max-w-full rounded-lg shadow"
+                                    onError={(e) => {
+                                        console.error('Image load error for:', panel.imagePath);
+                                    }}
                                 />
                             ) : (
                                 <div className="w-full h-64 bg-slate-100 rounded-lg flex items-center justify-center">
