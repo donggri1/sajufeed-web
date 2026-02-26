@@ -57,98 +57,52 @@ export function HomeTemplate({ nickname }: HomeTemplateProps) {
                     </div>
                 </div>
 
-                {/* 운세 탭 */}
-                <Tabs defaultValue="total" className="space-y-6 mt-10">
-                    <TabsList className="bg-white border p-1 h-12">
-                        <TabsTrigger value="total" className="px-8 py-2">{t('tabTotal')}</TabsTrigger>
-                        <TabsTrigger value="details" className="px-8 py-2">{t('tabDetails')}</TabsTrigger>
-                        <TabsTrigger value="webtoon" className="px-8 py-2">{t('tabWebtoon')}</TabsTrigger>
-                    </TabsList>
-                    <TabsContent value="total" className="border rounded-2xl bg-white p-8 shadow-sm min-h-[400px]">
-                        {isLoading ? (
-                            <div className="space-y-4 py-12">
-                                <Skeleton className="h-12 w-3/4 mx-auto" />
-                                <Skeleton className="h-4 w-full" />
-                                <Skeleton className="h-4 w-full" />
-                                <Skeleton className="h-4 w-2/3 mx-auto" />
+                {/* 오늘의 운세 요약부 */}
+                <div className="border rounded-2xl bg-white p-8 shadow-sm min-h-[400px]">
+                    {isLoading ? (
+                        <div className="space-y-4 py-12">
+                            <Skeleton className="h-12 w-3/4 mx-auto" />
+                            <Skeleton className="h-4 w-full" />
+                            <Skeleton className="h-4 w-full" />
+                            <Skeleton className="h-4 w-2/3 mx-auto" />
+                        </div>
+                    ) : fortune ? (
+                        <div className="flex flex-col items-center justify-center py-12 text-center text-slate-800">
+                            <div className="w-16 h-16 bg-indigo-50 rounded-full flex items-center justify-center mb-6">
+                                <span className="text-3xl">✨</span>
                             </div>
-                        ) : fortune ? (
-                            <div className="flex flex-col items-center justify-center py-12 text-center text-slate-800">
-                                <div className="w-16 h-16 bg-indigo-50 rounded-full flex items-center justify-center mb-6">
-                                    <span className="text-3xl">✨</span>
-                                </div>
-                                <h3 className="text-2xl font-bold mb-4">{fortune.summary}</h3>
-                                <p className="text-lg text-slate-600 max-w-2xl leading-relaxed whitespace-pre-wrap">
-                                    {fortune.description}
-                                </p>
+                            <h3 className="text-2xl font-bold mb-4">{fortune.summary}</h3>
+                            <p className="text-lg text-slate-600 max-w-2xl leading-relaxed whitespace-pre-wrap">
+                                {fortune.description}
+                            </p>
 
-                                <div className="grid grid-cols-3 gap-6 mt-12 w-full max-w-lg">
-                                    <div className="bg-slate-50 p-4 rounded-xl">
-                                        <div className="text-sm text-slate-500 mb-1">{tFortune('luckyColor')}</div>
-                                        <div className="font-bold text-indigo-600">{fortune.luckyColor}</div>
-                                    </div>
-                                    <div className="bg-slate-50 p-4 rounded-xl">
-                                        <div className="text-sm text-slate-500 mb-1">{tFortune('luckyItem')}</div>
-                                        <div className="font-bold text-purple-600">{fortune.luckyItem}</div>
-                                    </div>
-                                    <div className="bg-slate-50 p-4 rounded-xl">
-                                        <div className="text-sm text-slate-500 mb-1">{tFortune('luckyDirection')}</div>
-                                        <div className="font-bold text-blue-600">{fortune.luckyDirection}</div>
-                                    </div>
+                            <div className="grid grid-cols-3 gap-6 mt-12 w-full max-w-lg">
+                                <div className="bg-slate-50 p-4 rounded-xl">
+                                    <div className="text-sm text-slate-500 mb-1">{tFortune('luckyColor')}</div>
+                                    <div className="font-bold text-indigo-600">{fortune.luckyColor}</div>
+                                </div>
+                                <div className="bg-slate-50 p-4 rounded-xl">
+                                    <div className="text-sm text-slate-500 mb-1">{tFortune('luckyItem')}</div>
+                                    <div className="font-bold text-purple-600">{fortune.luckyItem}</div>
+                                </div>
+                                <div className="bg-slate-50 p-4 rounded-xl">
+                                    <div className="text-sm text-slate-500 mb-1">{tFortune('luckyDirection')}</div>
+                                    <div className="font-bold text-blue-600">{fortune.luckyDirection}</div>
                                 </div>
                             </div>
-                        ) : (
-                            <div className="flex flex-col items-center justify-center py-24 text-center">
-                                <div className="w-16 h-16 bg-indigo-50 rounded-full flex items-center justify-center mb-4">
-                                    <span className="text-2xl">✨</span>
-                                </div>
-                                <h3 className="text-xl font-semibold text-slate-900">{t('analysisTitle')}</h3>
-                                <p className="text-slate-500 mt-2 max-w-md">
-                                    {t('analysisDescription', { nickname })}
-                                </p>
+                        </div>
+                    ) : (
+                        <div className="flex flex-col items-center justify-center py-24 text-center">
+                            <div className="w-16 h-16 bg-indigo-50 rounded-full flex items-center justify-center mb-4">
+                                <span className="text-2xl">✨</span>
                             </div>
-                        )}
-                    </TabsContent>
-                    <TabsContent value="details" className="border rounded-2xl bg-white p-8 shadow-sm min-h-[400px]">
-                        {isLoading ? (
-                            <div className="space-y-4 py-12">
-                                <Skeleton className="h-12 w-3/4 mx-auto" />
-                                <Skeleton className="h-4 w-full" />
-                                <Skeleton className="h-4 w-full" />
-                                <Skeleton className="h-4 w-full" />
-                                <Skeleton className="h-4 w-2/3 mx-auto" />
-                            </div>
-                        ) : fortune?.details ? (
-                            <div className="py-8 px-4 max-w-3xl mx-auto">
-                                <div className="flex items-center gap-3 mb-8">
-                                    <div className="w-12 h-12 bg-indigo-50 rounded-full flex items-center justify-center">
-                                        <span className="text-2xl">🔮</span>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-xl font-bold text-slate-900">{t('tabDetails')}</h3>
-                                        <p className="text-sm text-slate-500">{fortune.date}</p>
-                                    </div>
-                                </div>
-                                <div className="text-base text-slate-700 leading-relaxed whitespace-pre-wrap space-y-1">
-                                    {fortune.details}
-                                </div>
-                            </div>
-                        ) : (
-                            <div className="flex flex-col items-center justify-center py-24 text-center">
-                                <div className="w-16 h-16 bg-indigo-50 rounded-full flex items-center justify-center mb-4">
-                                    <span className="text-2xl">🔮</span>
-                                </div>
-                                <h3 className="text-xl font-semibold text-slate-900">{t('analysisTitle')}</h3>
-                                <p className="text-slate-500 mt-2 max-w-md">
-                                    {t('analysisDescription', { nickname })}
-                                </p>
-                            </div>
-                        )}
-                    </TabsContent>
-                    <TabsContent value="webtoon" className="border rounded-2xl bg-white p-8 shadow-sm min-h-[400px]">
-                        <WebtoonButton fortuneId={fortune?.id} hasDetails={!!fortune?.details} />
-                    </TabsContent>
-                </Tabs>
+                            <h3 className="text-xl font-semibold text-slate-900">{t('analysisTitle')}</h3>
+                            <p className="text-slate-500 mt-2 max-w-md">
+                                {t('analysisDescription', { nickname })}
+                            </p>
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );
