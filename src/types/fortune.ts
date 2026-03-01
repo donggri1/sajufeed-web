@@ -26,6 +26,23 @@ export interface DailyFortuneResponse {
     webtoon?: WebtoonResponse | null;
 }
 
+export interface NewYearFortuneResponse {
+    id: number;
+    year: string;
+    totalScore: number;
+    wealthScore: number;
+    loveScore: number;
+    healthScore: number;
+    careerScore: number;
+    summary: string;
+    description: string;
+    details: string | null;
+    luckyColor: string;
+    luckyItem: string;
+    luckyDirection: string;
+    createdAt: string;
+}
+
 export interface WebtoonPanelResponse {
     id: number;
     pageNumber: number;

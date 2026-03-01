@@ -9,28 +9,42 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     providers: [
         Credentials({
             async authorize(credentials) {
-                const res = await fetch(`${process.env.BACKEND_URL}/api/users/login`, {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        email: credentials.email,
-                        password: credentials.password,
-                        nickname: credentials.nickname,
-                    }),
-                    headers: { "Content-Type": "application/json" }
-                });
+                console.log('Login attempt with:', credentials.email);
 
-                const data = await res.json();
+                // BACKEND_URL이 없으면 NEXT_PUBLIC_API_URL 사용
+                const apiUrl = process.env.BACKEND_URL || process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+                console.log('Resolved API URL is:', apiUrl);
 
-                if (res.ok && data) {
-                    // Backend 응답: { access_token, user: { id, email, nickname } }
-                    return {
-                        id: String(data.user.id),
-                        email: data.user.email,
-                        nickname: data.user.nickname,
-                        access_token: data.access_token, // JWT 토큰 포함
-                    };
+                try {
+                    const res = await fetch(`${apiUrl}/api/users/login`, {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            email: credentials.email,
+                            password: credentials.password,
+                        }),
+                        headers: { "Content-Type": "application/json" }
+                    });
+
+                    console.log('Fetch response status:', res.status);
+
+                    const data = await res.json();
+                    console.log('Fetch response data:', data);
+
+                    if (res.ok && data && data.user) {
+                        // Backend 응답: { access_token, user: { id, email, nickname } }
+                        return {
+                            id: String(data.user.id),
+                            email: data.user.email,
+                            nickname: data.user.nickname,
+                            access_token: data.access_token, // JWT 토큰 포함
+                        };
+                    }
+                    console.log('Login failed: invalid response or data structure');
+                    return null;
+                } catch (e) {
+                    console.error('Fetch to backend login failed:', e);
+                    return null;
                 }
-                return null;
             },
         }),
     ],

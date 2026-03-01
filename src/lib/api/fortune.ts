@@ -1,5 +1,5 @@
 import apiClient from './client';
-import { DailyFortuneResponse, WebtoonResponse, FortuneHistoryResponse } from '@/types/fortune';
+import { DailyFortuneResponse, WebtoonResponse, FortuneHistoryResponse, NewYearFortuneResponse } from '@/types/fortune';
 
 /**
  * 오늘의 운세 조회
@@ -37,6 +37,22 @@ export async function getDailyFortune(mock: boolean = false): Promise<DailyFortu
  */
 export async function createDailyFortune(): Promise<DailyFortuneResponse> {
     const { data } = await apiClient.post<DailyFortuneResponse>('/fortune/daily');
+    return data;
+}
+
+/**
+ * 신년운세 조회
+ */
+export async function getNewYearFortune(year: string): Promise<NewYearFortuneResponse> {
+    const { data } = await apiClient.get<NewYearFortuneResponse>(`/fortune/new-year/${year}`);
+    return data;
+}
+
+/**
+ * 신년운세 생성
+ */
+export async function createNewYearFortune(year: string): Promise<NewYearFortuneResponse> {
+    const { data } = await apiClient.post<NewYearFortuneResponse>(`/fortune/new-year/${year}`);
     return data;
 }
 
