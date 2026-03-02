@@ -1,4 +1,6 @@
 {
     "title": "신년운세",
-    "placeholder": "신년 총운 분석이 준비 중입니다."
+    "placeholder": "신년 총운 분석이 준비 중입니다.",
+    "loading": "신년운세를 불러오는 중입니다...",
+    "generateData": "올해의 운세 분석하기"
 }

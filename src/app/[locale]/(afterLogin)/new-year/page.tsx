@@ -7,7 +7,7 @@ export default async function NewYearPage() {
     const session = await auth();
     if (!session) redirect('/login');
 
-    const t = await getTranslations('newYear');
+    const t = await getTranslations('new-year');
 
     return (
         <div className="container mx-auto px-4 py-8 max-w-5xl">

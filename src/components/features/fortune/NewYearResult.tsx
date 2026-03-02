@@ -5,8 +5,9 @@ import { useTranslations } from 'next-intl';
 import { useNewYearFortune, useCreateNewYearFortune } from '@/hooks/queries/useNewYearFortune';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Loader2, Sparkles, Coins, Heart, Activity, Briefcase, AlertCircle, TrendingUp } from 'lucide-react';
+import { Loader2, Sparkles, Coins, Heart, Activity, Briefcase, TrendingUp, Star, Moon, Sun } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
+import React from 'react';
 
 interface NewYearResultProps {
     className?: string;
@@ -14,7 +15,7 @@ interface NewYearResultProps {
 }
 
 export function NewYearResult({ className, userId }: NewYearResultProps) {
-    const t = useTranslations('newYear');
+    const t = useTranslations('new-year');
     const targetYear = new Date().getFullYear().toString();
 
     const { data: fortune, isLoading } = useNewYearFortune(targetYear);
@@ -28,7 +29,7 @@ export function NewYearResult({ className, userId }: NewYearResultProps) {
         return (
             <div className={cn("bg-white rounded-xl border p-12 flex flex-col items-center justify-center space-y-4", className)}>
                 <Loader2 className="w-10 h-10 animate-spin text-indigo-500" />
-                <p className="text-slate-500">{t('loading', { fallback: '신년운세를 불러오는 중입니다...' })}</p>
+                <p className="text-slate-500">{t('loading')}</p>
             </div>
         );
     }
@@ -51,7 +52,7 @@ export function NewYearResult({ className, userId }: NewYearResultProps) {
                     className="h-14 px-8 text-lg font-bold bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all"
                 >
                     <Sparkles className="w-5 h-5 mr-2" />
-                    {t('generateData', { fallback: '올해의 운세 분석하기' })}
+                    {t('generateData')}
                 </Button>
             </div>
         );
@@ -118,17 +119,52 @@ export function NewYearResult({ className, userId }: NewYearResultProps) {
                     <h3 className="text-2xl font-bold text-slate-800">상세 흐름 분석</h3>
                 </div>
 
-                {fortune.details ? (
-                    <div className="prose prose-indigo max-w-none prose-headings:font-bold prose-headings:text-slate-800 prose-h3:text-xl prose-p:text-slate-600 prose-p:leading-relaxed prose-li:text-slate-600">
-                        <ReactMarkdown>
-                            {fortune.details}
-                        </ReactMarkdown>
-                    </div>
-                ) : (
-                    <div className="p-8 text-center text-slate-400 bg-slate-50 rounded-xl">
-                        상세 분석 데이터가 제공되지 않았습니다.
-                    </div>
-                )}
+                <div className="relative">
+                    {/* 배경 블러 효과 */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-3xl blur-xl opacity-50 -z-10"></div>
+
+                    {fortune.details ? (
+                        <div className="space-y-6">
+                            <ReactMarkdown
+                                components={{
+                                    h3: ({ node, ...props }) => (
+                                        <div className="flex items-center space-x-3 mt-12 mb-6 group">
+                                            <div className="w-1.5 h-8 bg-gradient-to-b from-indigo-500 to-purple-600 rounded-full shadow-[0_0_10px_rgba(99,102,241,0.5)] group-hover:shadow-[0_0_15px_rgba(99,102,241,0.8)] transition-shadow duration-300" />
+                                            <h3 className="text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-indigo-900 via-purple-800 to-indigo-900 tracking-tight" {...props} />
+                                            <Sparkles className="w-5 h-5 text-indigo-400 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-x-[-10px] group-hover:translate-x-0" />
+                                        </div>
+                                    ),
+                                    p: ({ node, ...props }) => (
+                                        <p className="text-slate-700 leading-loose text-lg bg-white/60 backdrop-blur-md rounded-2xl p-6 border border-white/50 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(99,102,241,0.1)] hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden group" {...props}>
+                                            <span className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-indigo-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+                                            {props.children}
+                                        </p>
+                                    ),
+                                    ul: ({ node, ...props }) => (
+                                        <ul className="space-y-4 my-6 pl-2" {...props} />
+                                    ),
+                                    li: ({ node, ...props }) => (
+                                        <li className="flex items-start space-x-3 group" {...props}>
+                                            <div className="mt-1 flex-shrink-0 w-6 h-6 rounded-full bg-indigo-50 flex items-center justify-center group-hover:bg-indigo-100 group-hover:scale-110 transition-all duration-300">
+                                                <Star className="w-3.5 h-3.5 text-indigo-500 group-hover:text-amber-400 transition-colors duration-300" />
+                                            </div>
+                                            <span className="text-slate-600 text-lg leading-relaxed group-hover:text-slate-800 transition-colors duration-300">{props.children}</span>
+                                        </li>
+                                    ),
+                                    strong: ({ node, ...props }) => (
+                                        <strong className="font-bold text-indigo-700 bg-indigo-50/80 px-1.5 py-0.5 rounded border-b-2 border-indigo-200" {...props} />
+                                    ),
+                                }}
+                            >
+                                {fortune.details}
+                            </ReactMarkdown>
+                        </div>
+                    ) : (
+                        <div className="p-8 text-center text-slate-400 bg-slate-50 rounded-xl relative z-10">
+                            상세 분석 데이터가 제공되지 않았습니다.
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );

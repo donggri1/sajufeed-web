@@ -1,4 +1,6 @@
 {
     "title": "New Year Fortune",
-    "placeholder": "New Year fortune analysis is coming soon."
+    "placeholder": "New Year fortune analysis is coming soon.",
+    "loading": "Loading your new year fortune...",
+    "generateData": "Analyze this year's fortune"
 }
