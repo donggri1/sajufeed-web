@@ -9,7 +9,7 @@ interface NameSajuResultProps {
 }
 
 export function NameSajuResult({ className, userId }: NameSajuResultProps) {
-    const t = useTranslations('nameSaju');
+    const t = useTranslations('name-saju');
 
     return (
         <div className={cn('p-6', className)}>

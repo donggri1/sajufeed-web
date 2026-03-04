@@ -7,7 +7,7 @@ export default async function NameSajuPage() {
     const session = await auth();
     if (!session) redirect('/login');
 
-    const t = await getTranslations('nameSaju');
+    const t = await getTranslations('name-saju');
 
     return (
         <div className="container mx-auto px-4 py-8 max-w-5xl">
