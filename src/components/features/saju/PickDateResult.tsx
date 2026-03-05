@@ -9,7 +9,7 @@ interface PickDateResultProps {
 }
 
 export function PickDateResult({ className, userId }: PickDateResultProps) {
-    const t = useTranslations('pickDate');
+    const t = useTranslations('pick-date');
 
     return (
         <div className={cn('p-6', className)}>

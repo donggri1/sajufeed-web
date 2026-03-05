@@ -1,4 +1,14 @@
 {
-    "title": "Dream Analysis",
-    "placeholder": "AI Dream analysis is coming soon."
+    "title": "Canvas of Dreams",
+    "description": "What did you dream of last night? Tell us everything you remember.",
+    "placeholder": "Record pieces of your mysterious dream here...",
+    "submit": "Interpret Unconscious",
+    "loading": "Interpreting the unconscious and painting on the canvas of the soul...",
+    "result_title": "Message from Your Unconscious",
+    "lucky_score": "Auspicious Score",
+    "actionable_advice": "Today's Prescription",
+    "lucky_item": "Lucky Item",
+    "lucky_color": "Lucky Color",
+    "buy_dream": "Buy this Dream",
+    "share": "Share Auspicious Dream"
 }

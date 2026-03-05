@@ -7,7 +7,7 @@ export default async function PickDatePage() {
     const session = await auth();
     if (!session) redirect('/login');
 
-    const t = await getTranslations('pick-Date');
+    const t = await getTranslations('pick-date');
 
     return (
         <div className="container mx-auto px-4 py-8 max-w-5xl">
