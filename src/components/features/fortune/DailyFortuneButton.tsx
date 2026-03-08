@@ -62,10 +62,10 @@ export function DailyFortuneButton() {
                     <Button
                         disabled={mutation.isPending || isUsed}
                         className={`relative w-full h-14 font-bold text-lg rounded-xl transition-all duration-500 overflow-hidden ${mutation.isPending
-                                ? "bg-slate-100 text-slate-400"
-                                : isUsed
-                                    ? "bg-slate-50 text-slate-400 border border-slate-200 shadow-inner"
-                                    : "bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:shadow-[0_0_30px_rgba(99,102,241,0.5)] border-t border-white/20"
+                            ? "bg-slate-100 text-slate-400"
+                            : isUsed
+                                ? "bg-slate-50 text-slate-400 border border-slate-200 shadow-inner"
+                                : "bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:shadow-[0_0_30px_rgba(99,102,241,0.5)] border-t border-white/20"
                             }`}
                     >
                         {/* Shimmer Effect */}
@@ -90,7 +90,7 @@ export function DailyFortuneButton() {
                         </div>
                     </Button>
                 </div>
-
+                {/* TODO: 내일 운세 보기 로직 추가 */}
                 {isUsed && (
                     <p className="text-xs font-medium text-slate-400 mt-4 text-center">
                         {t('nextDay')}
