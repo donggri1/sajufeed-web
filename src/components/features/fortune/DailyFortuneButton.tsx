@@ -90,7 +90,6 @@ export function DailyFortuneButton() {
                         </div>
                     </Button>
                 </div>
-                {/* TODO: 내일 운세 보기 로직 추가 */}
                 {isUsed && (
                     <p className="text-xs font-medium text-slate-400 mt-4 text-center">
                         {t('nextDay')}

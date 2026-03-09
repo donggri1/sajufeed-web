@@ -60,6 +60,7 @@ export function NewYearResult({ className, userId }: NewYearResultProps) {
 
     if (mutation.isPending) {
         return (
+            // TODO: 로딩 UI 개선
             <div className={cn("bg-white rounded-xl border p-12 flex flex-col items-center justify-center space-y-6 text-center", className)}>
                 <div className="relative w-24 h-24 flex items-center justify-center">
                     <div className="absolute inset-0 border-4 border-indigo-100 rounded-full animate-ping"></div>
