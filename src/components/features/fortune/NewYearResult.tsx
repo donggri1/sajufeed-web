@@ -60,7 +60,6 @@ export function NewYearResult({ className, userId }: NewYearResultProps) {
 
     if (mutation.isPending) {
         return (
-            // TODO: 로딩 UI 개선
             <div className={cn("bg-white rounded-xl border p-12 flex flex-col items-center justify-center space-y-6 text-center", className)}>
                 <div className="relative w-24 h-24 flex items-center justify-center">
                     <div className="absolute inset-0 border-4 border-indigo-100 rounded-full animate-ping"></div>
@@ -73,6 +72,11 @@ export function NewYearResult({ className, userId }: NewYearResultProps) {
                     <p className="text-slate-500 px-8">
                         AI가 사주팔자와 명리학적 패턴을 조합하여<br /> {targetYear}년의 상세한 운의 흐름을 계산하고 있습니다.
                     </p>
+                    <div className="mt-4 animate-bounce">
+                        <Badge variant="outline" className="text-indigo-500 border-indigo-200 bg-indigo-50/50">
+                            오늘 하루도 정말 고생 많으셨어요! 🌿 (커밋용 응원 메시지)
+                        </Badge>
+                    </div>
                 </div>
             </div>
         );
