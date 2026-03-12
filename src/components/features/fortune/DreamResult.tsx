@@ -7,7 +7,7 @@ import apiClient from '@/lib/api/client';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, Moon, Loader2, Download } from 'lucide-react';
 import Image from 'next/image';
-import html2canvas from 'html2canvas';
+import domToImage from 'dom-to-image';
 
 interface DreamResultProps {
     className?: string;
@@ -37,8 +37,7 @@ export function DreamResult({ className, userId }: DreamResultProps) {
     const handleDownload = async () => {
         if (!resultRef.current) return;
         try {
-            const canvas = await html2canvas(resultRef.current, { backgroundColor: '#0f172a', scale: 2 });
-            const dataUrl = canvas.toDataURL('image/png');
+            const dataUrl = await domToImage.toPng(resultRef.current, { bgcolor: '#0f172a' });
             const link = document.createElement('a');
             link.href = dataUrl;
             link.download = 'my-dream-card.png';
@@ -62,11 +61,10 @@ export function DreamResult({ className, userId }: DreamResultProps) {
             // 사운드스케이프 (Phase 3 엣지 반영 - 백그라운드 효과음)
             try {
                 const audio = new Audio('/sounds/magical-chime.mp3');
-                // 실제 에셋이 없다면 에러 콘솔에만 찍히므로 try-catch
                 audio.volume = 0.5;
-                audio.play();
+                audio.play().catch(e => console.log('Audio play failed:', e));
             } catch (e) {
-                console.log('Audio play failed', e);
+                console.log('Audio init failed:', e);
             }
         } catch (error) {
             console.error('꿈 해몽 요청 실패:', error);
@@ -144,9 +142,10 @@ export function DreamResult({ className, userId }: DreamResultProps) {
                         <div className="relative group w-full aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border border-white/10 bg-black/50 backdrop-blur-sm">
                             {result.imageUrl ? (
                                 <Image
-                                    src={`${process.env.NEXT_PUBLIC_API_URL}${result.imageUrl}`}
+                                    src={(process.env.NEXT_PUBLIC_API_URL || '') + result.imageUrl}
                                     alt="Dream Artwork"
                                     fill
+                                    unoptimized
                                     className="object-cover transition-transform duration-[10s] group-hover:scale-105"
                                 />
                             ) : (
