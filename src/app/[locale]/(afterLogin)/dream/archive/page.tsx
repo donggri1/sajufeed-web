@@ -399,8 +399,8 @@ export default function DreamArchivePage() {
                                     key={isConstellation ? `c-${item.key}` : `d-${item.id}`}
                                     ref={(el: HTMLDivElement | null) => { bubblesRef.current[index] = el; }}
                                     className={`absolute top-0 left-0 rounded-full overflow-hidden border pointer-events-none will-change-transform flex items-center justify-center group backdrop-blur-sm ${isConstellation
-                                            ? 'shadow-[inset_0_0_30px_rgba(168,85,247,0.5),0_0_40px_rgba(168,85,247,0.3)] border-purple-400/40 bg-purple-950/60'
-                                            : 'shadow-[inset_0_0_20px_rgba(255,255,255,0.4),0_10px_20px_rgba(0,0,0,0.5)] border-white/30 bg-slate-900'
+                                        ? 'shadow-[inset_0_0_30px_rgba(168,85,247,0.5),0_0_40px_rgba(168,85,247,0.3)] border-purple-400/40 bg-purple-950/60'
+                                        : 'shadow-[inset_0_0_20px_rgba(255,255,255,0.4),0_10px_20px_rgba(0,0,0,0.5)] border-white/30 bg-slate-900'
                                         }`}
                                     style={{
                                         width: diameter,
@@ -514,8 +514,8 @@ export default function DreamArchivePage() {
                                         onClick={() => handleFilterChange(opt.key)}
                                         disabled={isTransitioning}
                                         className={`whitespace-nowrap px-3 py-1 rounded-full text-xs font-medium transition-all duration-300 disabled:opacity-50 ${activeFilter === opt.key
-                                                ? 'bg-purple-500/60 text-white shadow-[0_0_10px_rgba(168,85,247,0.4)]'
-                                                : 'text-slate-400 hover:text-white hover:bg-white/10'
+                                            ? 'bg-purple-500/60 text-white shadow-[0_0_10px_rgba(168,85,247,0.4)]'
+                                            : 'text-slate-400 hover:text-white hover:bg-white/10'
                                             }`}
                                     >
                                         {opt.label}
@@ -656,7 +656,6 @@ export default function DreamArchivePage() {
                             >
                                 <X className="w-6 h-6" />
                             </button>
-
                             {/* 다운로드 버튼 */}
                             <button
                                 onClick={async (e) => {
@@ -724,7 +723,6 @@ export default function DreamArchivePage() {
                                 className="relative w-full max-w-lg bg-slate-900/95 border border-purple-500/20 rounded-3xl overflow-hidden shadow-2xl"
                                 onClick={(e) => e.stopPropagation()}
                             >
-                                {/* new */}
                                 <button
                                     onClick={() => setConstellationModal(null)}
                                     className="absolute top-4 right-4 z-10 p-2 rounded-full bg-black/50 text-white hover:bg-white/20 backdrop-blur transition-colors"
